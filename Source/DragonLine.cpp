@@ -5,7 +5,7 @@
 
 
 DragonLine::DragonLine():BaseLine(){
-	;
+	count_line_on_step = 2;//одна линия пораждает две
 }
 
 void DragonLine::A(int i, int dir, int x, int y) {
@@ -34,6 +34,7 @@ void DragonLine::B(int i, int dir, int x, int y) {
 }
 
 void DragonLine::Draw(int n) {	
+	BaseLine::Draw(n);
 	int i, x0, y0;
 	if (p_rect != NULL) {
 		Clear();

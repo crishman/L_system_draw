@@ -2,7 +2,7 @@
 #include "../Headers/KochLine.h"
 
 KochLine::KochLine() :BaseLine() {
-
+	count_line_on_step = 4;//одна линия пораждает четыре
 }
 
 void KochLine::A(int i, int dir) {
@@ -17,6 +17,7 @@ void KochLine::A(int i, int dir) {
 }
 
 void KochLine::Draw(int n) {
+	BaseLine::Draw(n);
 	int i, x0, y0;
 	if (p_rect != NULL) {
 		Clear();
@@ -47,6 +48,7 @@ KochStarLine::KochStarLine() :KochLine() {
 }
 
 void KochStarLine::Draw(int n) {
+	BaseLine::Draw(n);
 	int i, x0, y0;
 	if (p_rect != NULL) {
 		Clear();

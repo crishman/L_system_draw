@@ -2,7 +2,7 @@
 #include "../Headers/HilbertLine.h"
 
 HilbertLine::HilbertLine() :BaseLine() {
-
+	count_line_on_step = 4;//одна линия пораждает четыре
 }
 
 void HilbertLine::A(int i) {
@@ -54,6 +54,7 @@ void HilbertLine::D(int i) {
 }
 
 void HilbertLine::Draw(int n) {
+	BaseLine::Draw(n);
 	int i, x0, y0;	
 	if (p_rect != NULL) {
 		Clear();

@@ -6,8 +6,9 @@
 int left_delta = 0;
 int right_delta = 0;
 
+//naked Pifagore tree
 NakedPifagorTree::NakedPifagorTree() :BaseLine() {
-
+	count_line_on_step = 2;//одна линия пораждает две
 }
 
 void NakedPifagorTree::A(int i, int dir, int x, int y) {
@@ -25,6 +26,7 @@ void NakedPifagorTree::A(int i, int dir, int x, int y) {
 }
 
 void NakedPifagorTree::Draw(int n) {
+	BaseLine::Draw(n);
 	int i, x0, y0;
 	if (p_rect != NULL) {
 		Clear();
@@ -52,10 +54,10 @@ void NakedPifagorTree::Draw(int n) {
 	}
 }
 
-//
+//Pifagore tree
 
 PifagorTree::PifagorTree() :BaseLine() {
-
+	count_line_on_step = 2;//одна линия пораждает две
 }
 
 void PifagorTree::A(int i, int dir, int x, int y, double len) {
@@ -79,6 +81,7 @@ void PifagorTree::A(int i, int dir, int x, int y, double len) {
 }
 
 void PifagorTree::Draw(int n) {
+	BaseLine::Draw(n);
 	int i, x0, y0;
 	if (p_rect != NULL) {
 		Clear();

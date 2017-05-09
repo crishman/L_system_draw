@@ -226,7 +226,12 @@ void CL_system_drawDlg::OnPaint()
 
 			fractal_line->SetPaintDC(dc);
 			fractal_line->SetRect(rect);
-			fractal_line->Draw(m_RecNum);
+			try {
+				fractal_line->Draw(m_RecNum);
+			}
+			catch (TooDeepRecursionException &ex) {
+				AfxMessageBox(_T("Глубина рекурсивной прорисовки для данной кривой при текущем приближении больше чем установленное ограничение(2^16)!"));
+			}
 		}
 
 		draw_lock.unlock();
@@ -269,7 +274,7 @@ BOOL CL_system_drawDlg::OnEraseBkgnd(CDC* pDC)
 	CRect drawing_area;
 	GetClientRect(&drawing_area);
 
-	CBrush brush_back_ground(RGB(255, 255, 255));
+	CBrush brush_back_ground(RGB(0, 0, 0));
 
 	pDC->FillRect(&drawing_area, &brush_back_ground);
 
@@ -368,51 +373,6 @@ BOOL CL_system_drawDlg::CheckBeforeDraw() {
 	if (m_RecNum <= 0) {
 		AfxMessageBox(_T("Выберите уровень приблежения!"));
 		res = FALSE;
-	}else{
-		switch (m_DrawLineMode)
-		{
-		case HILBERT_LINE:
-		{
-			if (m_RecNum > 8) {
-				AfxMessageBox(_T("Дальнейшее приближение пока не оптимизировано"));
-				res = FALSE;
-			}
-			break;
-		}
-			
-		case SIERPINSKI_LINE:
-		{
-			if (m_RecNum > 7) {
-				AfxMessageBox(_T("Дальнейшее приближение пока не оптимизировано"));
-				res = FALSE;
-			}
-			break;
-		}
-		case KOCH_LINE:
-		case KOCH_STAR:
-		case HOSPER_LINE:
-		case MINKOVSKIY_LINE:
-		{
-			if (m_RecNum > 6) {
-				AfxMessageBox(_T("Дальнейшее приближение пока не оптимизировано"));
-				res = FALSE;
-			}
-			break;
-		}			
-		case NAKED_PIFAGORE_TREE:
-		case PIFAGORE_TREE:
-		case DRAGON_LINE:
-		case LEVI_LINE:
-		{
-			if (m_RecNum > 18) {
-				AfxMessageBox(_T("Дальнейшее приближение пока не оптимизировано"));
-				res = FALSE;
-			}
-			break;
-		}
-		default:
-			break;
-		}
 	}
 
 	return res;

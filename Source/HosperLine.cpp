@@ -2,7 +2,7 @@
 #include "../Headers/HosperLine.h"
 
 HosperLine::HosperLine() :BaseLine() {
-
+	count_line_on_step = 7;//одна линия пораждает семь
 }
 
 void HosperLine::A(int i, int dir) {
@@ -35,6 +35,7 @@ void HosperLine::B(int i, int dir) {
 }
 
 void HosperLine::Draw(int n) {
+	BaseLine::Draw(n);
 	int i, x0, y0;
 	if (p_rect != NULL) {
 		Clear();

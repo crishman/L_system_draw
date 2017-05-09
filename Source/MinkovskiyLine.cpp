@@ -2,7 +2,7 @@
 #include "../Headers/MinkovskiyLine.h"
 
 MinkovskiyLine::MinkovskiyLine() :BaseLine() {
-
+	count_line_on_step = 8;//одна линия пораждает восемь
 }
 
 void MinkovskiyLine::A(int i, int dir) {
@@ -22,6 +22,7 @@ void MinkovskiyLine::A(int i, int dir) {
 
 
 void MinkovskiyLine::Draw(int n) {
+	BaseLine::Draw(n);
 	int i, x0, y0;
 	if (p_rect != NULL) {
 		Clear();

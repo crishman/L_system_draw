@@ -2,7 +2,7 @@
 #include "../Headers/SierpinskiLine.h"
 
 SierpinskiLine::SierpinskiLine() :BaseLine() {
-
+	count_line_on_step = 4;//одна линия пораждает четыре
 }
 
 void SierpinskiLine::A(int k) {
@@ -54,6 +54,7 @@ void SierpinskiLine::D(int k) {
 }
 
 void SierpinskiLine::Draw(int n) {
+	BaseLine::Draw(n);
 	int i, x0, y0;
 	
 	Clear();
@@ -93,7 +94,7 @@ void SierpinskiLine::Draw(int n) {
 
 //Sirpinski2
 SierpinskiLine2::SierpinskiLine2() :BaseLine() {
-
+	count_line_on_step = 3;//одна линия пораждает три
 }
 
 void SierpinskiLine2::A(int i, int dir) {
@@ -119,6 +120,7 @@ void SierpinskiLine2::B(int i, int dir) {
 }
 
 void SierpinskiLine2::Draw(int n) {
+	BaseLine::Draw(n);
 	int i, x0, y0;
 
 	Clear();

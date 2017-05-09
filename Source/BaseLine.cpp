@@ -2,8 +2,7 @@
 #include "../Headers/BaseLine.h"
 #include <vector>
 #include "../Headers/AddFunctions.h"
-#include <exception>
-
+#include <math.h>
 
 BOOL g_bCheckLookCurLine = FALSE;
 BOOL g_isCurDrawLine = TRUE;
@@ -13,6 +12,7 @@ BaseLine::BaseLine() {
 	p_rect = NULL;
 	X = Y = 0;
 	line_len = 0;
+	count_line_on_step = 0;
 }
 
 void BaseLine::Clear() {
@@ -58,5 +58,11 @@ void BaseLine::square(int x, int y, int dir, int len) {
 	line(dir+ 90, len);
 	line(dir + 180, len);
 	line(dir + 270, len);
+}
+
+void BaseLine::Draw(int num)
+{
+	if (std::pow(count_line_on_step, num) > 65536)//2^16
+		throw TooDeepRecursionException();
 }
 
