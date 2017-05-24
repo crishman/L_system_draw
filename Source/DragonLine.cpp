@@ -35,14 +35,13 @@ void DragonLine::B(int i, int dir, int x, int y) {
 
 void DragonLine::Draw(int n) {	
 	BaseLine::Draw(n);
-	int i, x0, y0;
 	if (p_rect != NULL) {
 		Clear();
 		line_len = p_rect->Width()/3;
-		x0 = (int)std::round(p_rect->Width() / 2 - line_len / 3);
-		y0 = (int)std::round(p_rect->Height() / 2 + line_len /4);
+		auto x0 = (int)std::round(p_rect->Width() / 2 - line_len / 3);
+		auto y0 = (int)std::round(p_rect->Height() / 2 + line_len /4);
 
-		i = 0;
+		auto i = 0;
 		last_len.clear();
 
 		do {

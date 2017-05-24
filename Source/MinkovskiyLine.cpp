@@ -23,14 +23,13 @@ void MinkovskiyLine::A(int i, int dir) {
 
 void MinkovskiyLine::Draw(int n) {
 	BaseLine::Draw(n);
-	int i, x0, y0;
 	if (p_rect != NULL) {
 		Clear();
 		line_len = p_rect->Width() * 3 / 4;
-		x0 = (int)std::round(p_rect->Width() / 2 - line_len / 2);
-		y0 = (int)std::round(p_rect->Height() / 2);
+		auto x0 = (int)std::round(p_rect->Width() / 2 - line_len / 2);
+		auto y0 = (int)std::round(p_rect->Height() / 2);
 
-		i = 0;
+		auto i = 0;
 
 		do {
 			i++;

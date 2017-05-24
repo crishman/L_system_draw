@@ -46,8 +46,8 @@ void BaseLine::square(int x, int y, int dir, int len) {
 	for (auto i = 0; i < 4; i++) {
 		plg[i].x = x;
 		plg[i].y = y;
-		x += (int)std::round(get_cos(dir + 90*i)*len);
-		y -= (int)std::round(get_sin(dir + 90 * i)*len);		
+		x += (int)std::round(get_cos(dir + 90 * i) * len);
+		y -= (int)std::round(get_sin(dir + 90 * i) * len);		
 	}
 
 	CRgn   rgn;

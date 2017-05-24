@@ -8,10 +8,10 @@
 std::map<int, double> sin_by_dir;
 std::map<int, double> cos_by_dir;
 
-double koef_pi = PI / 180;
+const double koef_pi = PI / 180;
 
 double get_sin(int dir) {
-	std::map<int, double>::iterator sin_it = sin_by_dir.find(dir);
+	auto sin_it = sin_by_dir.find(dir);
 	double res;
 
 	if (sin_it != sin_by_dir.end()) {
@@ -26,7 +26,7 @@ double get_sin(int dir) {
 }
 
 double get_cos(int dir) {
-	std::map<int, double>::iterator cos_it = cos_by_dir.find(dir);
+	auto cos_it = cos_by_dir.find(dir);
 	double res;
 
 	if (cos_it != cos_by_dir.end()) {

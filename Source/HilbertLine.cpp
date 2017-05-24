@@ -55,13 +55,12 @@ void HilbertLine::D(int i) {
 
 void HilbertLine::Draw(int n) {
 	BaseLine::Draw(n);
-	int i, x0, y0;	
 	if (p_rect != NULL) {
 		Clear();
 		line_len = p_rect->Width() / 2;
-		x0 = (int)std::round(line_len);
-		y0 = (int)std::round(p_rect->Height() / 2);
-		i = 0;
+		auto x0 = (int)std::round(line_len);
+		auto y0 = (int)std::round(p_rect->Height() / 2);
+		auto i = 0;
 
 		do {
 			i++;

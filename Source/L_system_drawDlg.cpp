@@ -129,7 +129,7 @@ BOOL CL_system_drawDlg::OnInitDialog()
 
 	// TODO: добавьте дополнительную инициализацию
 
-	int add_line = m_LineComboBox.AddString(_T("Кривая Гильберта"));
+	auto add_line = m_LineComboBox.AddString(_T("Кривая Гильберта"));
 	m_LineComboBox.SetItemData(add_line, HILBERT_LINE);
 	add_line = m_LineComboBox.AddString(_T("Кривая Серпинского"));
 	m_LineComboBox.SetItemData(add_line, SIERPINSKI_LINE);
@@ -229,7 +229,7 @@ void CL_system_drawDlg::OnPaint()
 			try {
 				fractal_line->Draw(m_RecNum);
 			}
-			catch (TooDeepRecursionException &ex) {
+			catch (const TooDeepRecursionException &ex) {
 				AfxMessageBox(_T("Глубина рекурсивной прорисовки для данной кривой при текущем приближении больше чем установленное ограничение(2^16)!"));
 			}
 		}
@@ -368,7 +368,7 @@ void CL_system_drawDlg::OnCbnSelchangeLineCombo()
 }
 
 BOOL CL_system_drawDlg::CheckBeforeDraw() {
-	BOOL res = TRUE;
+	auto res = TRUE;
 
 	if (m_RecNum <= 0) {
 		AfxMessageBox(_T("Выберите уровень приблежения!"));
@@ -410,7 +410,6 @@ BOOL CL_system_drawDlg::UpdateData(BOOL bSaveAndValidate) {
 
 void CL_system_drawDlg::OnBnClickedLeftWingL()
 {
-	// TODO: добавьте свой код обработчика уведомлений
 	left_delta++;
 	RedrawWindow();
 }
@@ -418,7 +417,6 @@ void CL_system_drawDlg::OnBnClickedLeftWingL()
 
 void CL_system_drawDlg::OnBnClickedRightWingL()
 {
-	// TODO: добавьте свой код обработчика уведомлений
 	left_delta--;
 	RedrawWindow();
 }
@@ -426,7 +424,6 @@ void CL_system_drawDlg::OnBnClickedRightWingL()
 
 void CL_system_drawDlg::OnBnClickedLeftWingR()
 {
-	// TODO: добавьте свой код обработчика уведомлений
 	right_delta++;
 	RedrawWindow();
 }
@@ -434,7 +431,6 @@ void CL_system_drawDlg::OnBnClickedLeftWingR()
 
 void CL_system_drawDlg::OnBnClickedRightWingR()
 {
-	// TODO: добавьте свой код обработчика уведомлений
 	right_delta--;
 	RedrawWindow();
 }
@@ -442,7 +438,5 @@ void CL_system_drawDlg::OnBnClickedRightWingR()
 
 void CL_system_drawDlg::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
-	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
-
 	CDialogEx::OnLButtonDblClk(nFlags, point);
 }

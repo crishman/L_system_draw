@@ -55,41 +55,41 @@ void SierpinskiLine::D(int k) {
 
 void SierpinskiLine::Draw(int n) {
 	BaseLine::Draw(n);
-	int i, x0, y0;
-	
-	Clear();
-	line_len = p_rect->Width() / 8;
-	x0 = (int)std::round(p_rect->Width() / 2);
-	y0 = (int)std::round(p_rect->Height() / 2 - line_len);
-	i = 0;
+	if (p_rect != NULL) {
+		Clear();
+		line_len = p_rect->Width() / 8;
+		auto x0 = (int)std::round(p_rect->Width() / 2);
+		auto y0 = (int)std::round(p_rect->Height() / 2 - line_len);
+		auto i = 0;
 
-	do {
-		i++;
-		cur_pen.reset(new CPen(PS_SOLID, 1, RGB(255 - i * 5, 255 - i * 23, 255 - i * 30)));
-			
-		if (g_bCheckLookCurLine) {
-			Clear();
+		do {
+			i++;
+			cur_pen.reset(new CPen(PS_SOLID, 1, RGB(255 - i * 5, 255 - i * 23, 255 - i * 30)));
 
-			if (i != n)
-				g_isCurDrawLine = FALSE;
-		}
+			if (g_bCheckLookCurLine) {
+				Clear();
 
-		x0 = (int)std::round(x0 - line_len * 7 / 9);
-		line_len /= 2;
-		y0 = (int)std::round(y0 - line_len * 4 / 5);
-		SetPen(x0, y0);
+				if (i != n)
+					g_isCurDrawLine = FALSE;
+			}
 
-		A(i);
-		line(315, line_len);
-		B(i);
-		line(225, line_len);
-		C(i);
-		line(135, line_len);
-		D(i);
-		line(45, line_len);
+			x0 = (int)std::round(x0 - line_len * 7 / 9);
+			line_len /= 2;
+			y0 = (int)std::round(y0 - line_len * 4 / 5);
+			SetPen(x0, y0);
 
-		g_isCurDrawLine = TRUE;
-	} while (i != n);
+			A(i);
+			line(315, line_len);
+			B(i);
+			line(225, line_len);
+			C(i);
+			line(135, line_len);
+			D(i);
+			line(45, line_len);
+
+			g_isCurDrawLine = TRUE;
+		} while (i != n);
+	}
 }
 
 //Sirpinski2
@@ -121,30 +121,30 @@ void SierpinskiLine2::B(int i, int dir) {
 
 void SierpinskiLine2::Draw(int n) {
 	BaseLine::Draw(n);
-	int i, x0, y0;
+	if (p_rect != NULL) {
+		Clear();
+		line_len = p_rect->Width() / 2;
+		auto x0 = (int)std::round(p_rect->Width() / 3);
+		auto y0 = (int)std::round(p_rect->Height() * 5 / 6);
+		auto i = 0;
 
-	Clear();
-	line_len = p_rect->Width() / 2;
-	x0 = (int)std::round(p_rect->Width() / 3);
-	y0 = (int)std::round(p_rect->Height() * 5/6);
-	i = 0;
+		do {
+			cur_pen.reset(new CPen(PS_SOLID, 1, RGB(200 - i * 5, 100 + i * 23, 255 - i * 15)));
 
-	do {		
-		cur_pen.reset(new CPen(PS_SOLID, 1, RGB(200 - i * 5, 100 + i * 23, 255 - i * 15)));
+			if (g_bCheckLookCurLine) {
+				Clear();
 
-		if (g_bCheckLookCurLine) {
-			Clear();
+				if (i != n)
+					g_isCurDrawLine = FALSE;
+			}
 
-			if (i != n)
-				g_isCurDrawLine = FALSE;
-		}
+			SetPen(x0, y0);
 
-		SetPen(x0, y0);
+			A(i, 0);
+			line_len /= 2;
+			i++;
 
-		A(i, 0);
-		line_len /= 2;
-		i++;
-
-		g_isCurDrawLine = TRUE;
-	} while (i != n);
+			g_isCurDrawLine = TRUE;
+		} while (i != n);
+	}
 }

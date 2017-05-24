@@ -27,14 +27,13 @@ void NakedPifagorTree::A(int i, int dir, int x, int y) {
 
 void NakedPifagorTree::Draw(int n) {
 	BaseLine::Draw(n);
-	int i, x0, y0;
 	if (p_rect != NULL) {
 		Clear();
 		line_len = p_rect->Width() / 4;
-		x0 = (int)std::round(p_rect->Width() / 2);
-		y0 = (int)std::round(p_rect->Height() / 2 + line_len);
+		auto x0 = (int)std::round(p_rect->Width() / 2);
+		auto y0 = (int)std::round(p_rect->Height() / 2 + line_len);
 
-		i = 0;
+		auto i = 0;
 
 		line_lens.clear();
 
@@ -69,27 +68,26 @@ void PifagorTree::A(int i, int dir, int x, int y, double len) {
 		x += (int)std::round(get_cos(dir + 90)*len);
 		y -= (int)std::round(get_sin(dir + 90)*len);
 
-		int len1 = (int)std::round(len * get_cos(45 + left_delta + right_delta));
+		auto len1 = (int)std::round(len * get_cos(45 + left_delta + right_delta));
 
 		A(i - 1, dir + 45 + left_delta + right_delta, x, y, len1);
 
 		x += (int)std::round(get_cos(dir + 45 + left_delta + right_delta)*len1);
 		y -= (int)std::round(get_sin(dir + 45 + left_delta + right_delta)*len1);
-		int len2 = (int)std::round(len * get_sin(45 + left_delta + right_delta));
+		auto len2 = (int)std::round(len * get_sin(45 + left_delta + right_delta));
 		A(i - 1, dir - 45 + right_delta + left_delta, x, y, len2);
 	}
 }
 
 void PifagorTree::Draw(int n) {
 	BaseLine::Draw(n);
-	int i, x0, y0;
 	if (p_rect != NULL) {
 		Clear();
 		line_len = p_rect->Width() / 8;
-		x0 = (int)std::round(p_rect->Width() / 2);
-		y0 = (int)std::round(p_rect->Height() / 2 + 2*line_len);
+		auto x0 = (int)std::round(p_rect->Width() / 2);
+		auto y0 = (int)std::round(p_rect->Height() / 2 + 2*line_len);
 
-		i = 0;
+		auto i = 0;
 
 		do {
 			cur_pen.reset(new CPen(PS_SOLID, 1, RGB(i * 5, 255 - i * 20, 100 + i *11)));
