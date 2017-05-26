@@ -90,7 +90,7 @@ BOOL CL_system_drawApp::InitInstance()
 	}
 
 	// Удалить диспетчер оболочки, созданный выше.
-	if (pShellManager != NULL)
+	if (pShellManager != nullptr)
 	{
 		delete pShellManager;
 	}

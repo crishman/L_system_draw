@@ -18,7 +18,7 @@ void KochLine::A(int i, int dir) {
 
 void KochLine::Draw(int n) {
 	BaseLine::Draw(n);
-	if (p_rect != NULL) {
+	if (p_rect != nullptr) {
 		Clear();
 		line_len = p_rect->Width() *3 / 4;
 		auto x0 = (int)std::round(p_rect->Width() / 2 - line_len /2);
@@ -48,7 +48,7 @@ KochStarLine::KochStarLine() :KochLine() {
 
 void KochStarLine::Draw(int n) {
 	BaseLine::Draw(n);
-	if (p_rect != NULL) {
+	if (p_rect != nullptr) {
 		Clear();
 		line_len = p_rect->Width() / 3;
 		auto x0 = (int)std::round(p_rect->Width() / 2);

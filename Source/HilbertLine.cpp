@@ -55,7 +55,7 @@ void HilbertLine::D(int i) {
 
 void HilbertLine::Draw(int n) {
 	BaseLine::Draw(n);
-	if (p_rect != NULL) {
+	if (p_rect != nullptr) {
 		Clear();
 		line_len = p_rect->Width() / 2;
 		auto x0 = (int)std::round(line_len);

@@ -17,7 +17,7 @@ void LeviLine::A(int i, int dir) {
 
 void LeviLine::Draw(int n) {
 	BaseLine::Draw(n);
-	if (p_rect != NULL) {
+	if (p_rect != nullptr) {
 		Clear();
 		line_len = p_rect->Width() / 3;
 		auto x0 = (int)std::round(p_rect->Width() / 2 - line_len / 3);

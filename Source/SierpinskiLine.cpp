@@ -55,7 +55,7 @@ void SierpinskiLine::D(int k) {
 
 void SierpinskiLine::Draw(int n) {
 	BaseLine::Draw(n);
-	if (p_rect != NULL) {
+	if (p_rect != nullptr) {
 		Clear();
 		line_len = p_rect->Width() / 8;
 		auto x0 = (int)std::round(p_rect->Width() / 2);
@@ -121,7 +121,7 @@ void SierpinskiLine2::B(int i, int dir) {
 
 void SierpinskiLine2::Draw(int n) {
 	BaseLine::Draw(n);
-	if (p_rect != NULL) {
+	if (p_rect != nullptr) {
 		Clear();
 		line_len = p_rect->Width() / 2;
 		auto x0 = (int)std::round(p_rect->Width() / 3);

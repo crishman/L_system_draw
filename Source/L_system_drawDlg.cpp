@@ -220,7 +220,7 @@ void CL_system_drawDlg::OnPaint()
 			break;
 		}
 
-		if (fractal_line != NULL) {
+		if (fractal_line != nullptr) {
 			std::shared_ptr<CRect> rect(new CRect());
 			GetClientRect(*rect);
 
