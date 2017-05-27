@@ -3,13 +3,12 @@
 #include <vector>
 
 class DragonLine : public BaseLine {
-	void A(int i, int dir, int x, int y);
-	void B(int i, int dir, int x, int y);
+	void A(unsigned i, int dir, int x, int y);
+	void B(unsigned i, int dir, int x, int y);
 
 	std::vector<double> last_len;
 public:
 	DragonLine();
-	virtual ~DragonLine() {};
 
-	virtual void Draw(int n);
+	virtual void Draw(unsigned n) override;
 };

@@ -2,11 +2,10 @@
 #include "BaseLine.h"
 
 class HosperLine : public BaseLine {
-	void A(int i, int dir);
-	void B(int i, int dir);
+	void A(unsigned i, int dir);
+	void B(unsigned i, int dir);
 
 public:
 	HosperLine();
-	virtual ~HosperLine() {};
-	virtual void Draw(int n);
+	virtual void Draw(unsigned n) override;
 };

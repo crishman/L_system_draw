@@ -18,12 +18,12 @@ protected:
 
 	double line_len;
 
-	int count_line_on_step;//количество вызовов реукрсии за один шаг
+	unsigned count_line_on_step;//количество вызовов реукрсии за один шаг
 
 public:
 	BaseLine();
-	virtual ~BaseLine() {};
-	virtual void Draw(int num);
+	virtual ~BaseLine() = default;
+	virtual void Draw(unsigned num);
 
 	void SetPaintDC(std::shared_ptr<CPaintDC> dc) { p_dc = dc; }
 	void SetRect(std::shared_ptr<CRect> rect) { p_rect = rect; }
@@ -31,9 +31,9 @@ public:
 	void Clear();
 
 protected:
-	void SetPen(int x, int y);
+	void SetPen(int x, int y) noexcept;
 	void line(int dir, double len);
-	void square(int x, int y, int dir, int len);
+	void square(int x, int y, int dir, double len);
 };
 
 class TooDeepRecursionException {

@@ -9,7 +9,7 @@
 // диалоговое окно CL_system_drawDlg
 class CL_system_drawDlg : public CDialogEx
 {
-	enum _draw_line_mode {
+	enum class _draw_line_mode : int{
 		DRAW_LINE_DISABLED = 0,
 		HILBERT_LINE,
 		SIERPINSKI_LINE,
@@ -26,7 +26,7 @@ class CL_system_drawDlg : public CDialogEx
 
 // Создание
 public:
-	CL_system_drawDlg(CWnd* pParent = NULL);	// стандартный конструктор
+	CL_system_drawDlg(CWnd* pParent = nullptr);	// стандартный конструктор
 
 // Данные диалогового окна
 #ifdef AFX_DESIGN_TIME

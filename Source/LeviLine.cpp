@@ -6,16 +6,16 @@ LeviLine::LeviLine() :BaseLine() {
 	count_line_on_step = 2;//одна линия пораждает две
 }
 
-void LeviLine::A(int i, int dir) {
-	if (i == 0)	
-		line(dir, line_len);
-	else {
+void LeviLine::A(unsigned i, int dir) {
+	if (i) {
 		A(i - 1, dir + 45);
 		A(i - 1, dir - 45);
 	}
+	else 
+		line(dir, line_len);
 }
 
-void LeviLine::Draw(int n) {
+void LeviLine::Draw(unsigned n) {
 	BaseLine::Draw(n);
 	if (p_rect != nullptr) {
 		Clear();
@@ -23,14 +23,14 @@ void LeviLine::Draw(int n) {
 		auto x0 = (int)std::round(p_rect->Width() / 2 - line_len / 3);
 		auto y0 = (int)std::round(p_rect->Height() * 5/6);
 
-		auto i = 0;
+		decltype(n) i = 0;
 
 		do {
-			i++;
+			++i;
 			cur_pen.reset(new CPen(PS_SOLID, 1, RGB(180 - i * 15, 70, 255 - i * 15)));
 			if (g_bCheckLookCurLine) {
 				Clear();
-				if (i != n)
+				if (i ^ n)
 					g_isCurDrawLine = FALSE;
 			}
 
@@ -39,6 +39,6 @@ void LeviLine::Draw(int n) {
 			A(i, 0);
 
 			g_isCurDrawLine = TRUE;
-		} while (i != n);
+		} while (i ^ n);
 	}
 }

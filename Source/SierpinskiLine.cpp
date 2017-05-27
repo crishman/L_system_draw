@@ -5,8 +5,8 @@ SierpinskiLine::SierpinskiLine() :BaseLine() {
 	count_line_on_step = 4;//одна линия пораждает четыре
 }
 
-void SierpinskiLine::A(int k) {
-	if (k > 0) {
+void SierpinskiLine::A(unsigned k) {
+	if (k) {
 		A(k - 1);
 		line(315, line_len);
 		B(k - 1);
@@ -17,8 +17,8 @@ void SierpinskiLine::A(int k) {
 	}
 }
 
-void SierpinskiLine::B(int k) {
-	if (k > 0) {
+void SierpinskiLine::B(unsigned k) {
+	if (k) {
 		B(k - 1);
 		line(225, line_len);
 		C(k - 1);
@@ -29,8 +29,8 @@ void SierpinskiLine::B(int k) {
 	}
 }
 
-void SierpinskiLine::C(int k) {
-	if (k > 0) {
+void SierpinskiLine::C(unsigned k) {
+	if (k) {
 		C(k - 1);
 		line(135, line_len);
 		D(k - 1);
@@ -41,8 +41,8 @@ void SierpinskiLine::C(int k) {
 	}
 }
 
-void SierpinskiLine::D(int k) {
-	if (k > 0) {
+void SierpinskiLine::D(unsigned k) {
+	if (k) {
 		D(k - 1);
 		line(45, line_len);
 		A(k - 1);
@@ -53,23 +53,23 @@ void SierpinskiLine::D(int k) {
 	}
 }
 
-void SierpinskiLine::Draw(int n) {
+void SierpinskiLine::Draw(unsigned n) {
 	BaseLine::Draw(n);
 	if (p_rect != nullptr) {
 		Clear();
 		line_len = p_rect->Width() / 8;
 		auto x0 = (int)std::round(p_rect->Width() / 2);
 		auto y0 = (int)std::round(p_rect->Height() / 2 - line_len);
-		auto i = 0;
+		decltype(n) i = 0;
 
 		do {
-			i++;
+			++i;
 			cur_pen.reset(new CPen(PS_SOLID, 1, RGB(255 - i * 5, 255 - i * 23, 255 - i * 30)));
 
 			if (g_bCheckLookCurLine) {
 				Clear();
 
-				if (i != n)
+				if (i ^ n)
 					g_isCurDrawLine = FALSE;
 			}
 
@@ -88,7 +88,7 @@ void SierpinskiLine::Draw(int n) {
 			line(45, line_len);
 
 			g_isCurDrawLine = TRUE;
-		} while (i != n);
+		} while (i ^ n);
 	}
 }
 
@@ -97,36 +97,34 @@ SierpinskiLine2::SierpinskiLine2() :BaseLine() {
 	count_line_on_step = 3;//одна линия пораждает три
 }
 
-void SierpinskiLine2::A(int i, int dir) {
-	if (i == 0) {
-		line(dir, line_len);
-	}
-	else {
+void SierpinskiLine2::A(unsigned i, int dir) {
+	if (i) {
 		B(i - 1, dir + 60);
 		A(i - 1, dir);
 		B(i - 1, dir + 300);
 	}
+	else
+		line(dir, line_len);
 }
 
-void SierpinskiLine2::B(int i, int dir) {
-	if (i == 0) {
-		line(dir, line_len);
-	}
-	else {
+void SierpinskiLine2::B(unsigned i, int dir) {
+	if (i) {
 		A(i - 1, dir + 300);
 		B(i - 1, dir);
 		A(i - 1, dir + 60);
 	}
+	else
+		line(dir, line_len);
 }
 
-void SierpinskiLine2::Draw(int n) {
+void SierpinskiLine2::Draw(unsigned n) {
 	BaseLine::Draw(n);
 	if (p_rect != nullptr) {
 		Clear();
 		line_len = p_rect->Width() / 2;
 		auto x0 = (int)std::round(p_rect->Width() / 3);
 		auto y0 = (int)std::round(p_rect->Height() * 5 / 6);
-		auto i = 0;
+		decltype(n) i = 0;
 
 		do {
 			cur_pen.reset(new CPen(PS_SOLID, 1, RGB(200 - i * 5, 100 + i * 23, 255 - i * 15)));
@@ -134,7 +132,7 @@ void SierpinskiLine2::Draw(int n) {
 			if (g_bCheckLookCurLine) {
 				Clear();
 
-				if (i != n)
+				if (i ^ n)
 					g_isCurDrawLine = FALSE;
 			}
 
@@ -142,9 +140,9 @@ void SierpinskiLine2::Draw(int n) {
 
 			A(i, 0);
 			line_len /= 2;
-			i++;
+			++i;
 
 			g_isCurDrawLine = TRUE;
-		} while (i != n);
+		} while (i ^ n);
 	}
 }

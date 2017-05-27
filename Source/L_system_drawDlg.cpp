@@ -68,7 +68,7 @@ CL_system_drawDlg::CL_system_drawDlg(CWnd* pParent /*=NULL*/)
 	, m_RecNum(0)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	m_DrawLineMode = DRAW_LINE_DISABLED;
+	m_DrawLineMode = _draw_line_mode::DRAW_LINE_DISABLED;
 }
 
 void CL_system_drawDlg::DoDataExchange(CDataExchange* pDX)
@@ -130,27 +130,27 @@ BOOL CL_system_drawDlg::OnInitDialog()
 	// TODO: добавьте дополнительную инициализацию
 
 	auto add_line = m_LineComboBox.AddString(_T("Кривая Гильберта"));
-	m_LineComboBox.SetItemData(add_line, HILBERT_LINE);
+	m_LineComboBox.SetItemData(add_line, static_cast<DWORD_PTR>(_draw_line_mode::HILBERT_LINE));
 	add_line = m_LineComboBox.AddString(_T("Кривая Серпинского"));
-	m_LineComboBox.SetItemData(add_line, SIERPINSKI_LINE);
+	m_LineComboBox.SetItemData(add_line, static_cast<DWORD_PTR>(_draw_line_mode::SIERPINSKI_LINE));
 	add_line = m_LineComboBox.AddString(_T("Кривая Коха"));
-	m_LineComboBox.SetItemData(add_line, KOCH_LINE);
+	m_LineComboBox.SetItemData(add_line, static_cast<DWORD_PTR>(_draw_line_mode::KOCH_LINE));
 	add_line = m_LineComboBox.AddString(_T("Обнаженное дерево Пифагора"));
-	m_LineComboBox.SetItemData(add_line, NAKED_PIFAGORE_TREE);
+	m_LineComboBox.SetItemData(add_line, static_cast<DWORD_PTR>(_draw_line_mode::NAKED_PIFAGORE_TREE));
 	add_line = m_LineComboBox.AddString(_T("Снежинка Коха"));
-	m_LineComboBox.SetItemData(add_line, KOCH_STAR);
+	m_LineComboBox.SetItemData(add_line, static_cast<DWORD_PTR>(_draw_line_mode::KOCH_STAR));
 	add_line = m_LineComboBox.AddString(_T("Дракон Хартера — Хейтуэя"));
-	m_LineComboBox.SetItemData(add_line, DRAGON_LINE);
+	m_LineComboBox.SetItemData(add_line, static_cast<DWORD_PTR>(_draw_line_mode::DRAGON_LINE));
 	add_line = m_LineComboBox.AddString(_T("Классическое дерево Пифагора"));
-	m_LineComboBox.SetItemData(add_line, PIFAGORE_TREE);		
+	m_LineComboBox.SetItemData(add_line, static_cast<DWORD_PTR>(_draw_line_mode::PIFAGORE_TREE));
 	add_line = m_LineComboBox.AddString(_T("Кривая Госпера"));
-	m_LineComboBox.SetItemData(add_line, HOSPER_LINE);	
+	m_LineComboBox.SetItemData(add_line, static_cast<DWORD_PTR>(_draw_line_mode::HOSPER_LINE));
 	add_line = m_LineComboBox.AddString(_T("Кривая Серпинского 2"));
-	m_LineComboBox.SetItemData(add_line, SIERPINSKI_LINE_2);
+	m_LineComboBox.SetItemData(add_line, static_cast<DWORD_PTR>(_draw_line_mode::SIERPINSKI_LINE_2));
 	add_line = m_LineComboBox.AddString(_T("Кривая Леви"));
-	m_LineComboBox.SetItemData(add_line, LEVI_LINE);
+	m_LineComboBox.SetItemData(add_line, static_cast<DWORD_PTR>(_draw_line_mode::LEVI_LINE));
 	add_line = m_LineComboBox.AddString(_T("Кривая Минковского"));
-	m_LineComboBox.SetItemData(add_line, MINKOVSKIY_LINE);	
+	m_LineComboBox.SetItemData(add_line, static_cast<DWORD_PTR>(_draw_line_mode::MINKOVSKIY_LINE));
 
 	return TRUE;  // возврат значения TRUE, если фокус не передан элементу управления
 }
@@ -177,43 +177,43 @@ void CL_system_drawDlg::OnPaint()
 	std::shared_ptr<CPaintDC> dc(new CPaintDC(this));
 
 	std::thread draw_thr([=]() {
-		draw_lock.lock();
+		std::lock_guard<std::mutex> g(draw_lock);
 
 		std::shared_ptr<BaseLine> fractal_line;
 
 		switch (m_DrawLineMode)
 		{
-		case HILBERT_LINE:
+		case _draw_line_mode::HILBERT_LINE:
 			fractal_line.reset(new HilbertLine());
 			break;
-		case SIERPINSKI_LINE:
+		case _draw_line_mode::SIERPINSKI_LINE:
 			fractal_line.reset(new SierpinskiLine());
 			break;
-		case KOCH_LINE:
+		case _draw_line_mode::KOCH_LINE:
 			fractal_line.reset(new KochLine());
 			break;
-		case NAKED_PIFAGORE_TREE:
+		case _draw_line_mode::NAKED_PIFAGORE_TREE:
 			fractal_line.reset(new NakedPifagorTree());
 			break;
-		case PIFAGORE_TREE:
+		case _draw_line_mode::PIFAGORE_TREE:
 			fractal_line.reset(new PifagorTree());
 			break;
-		case KOCH_STAR:
+		case _draw_line_mode::KOCH_STAR:
 			fractal_line.reset(new KochStarLine());
 			break;
-		case DRAGON_LINE:
+		case _draw_line_mode::DRAGON_LINE:
 			fractal_line.reset(new DragonLine());
 			break;
-		case HOSPER_LINE:
+		case _draw_line_mode::HOSPER_LINE:
 			fractal_line.reset(new HosperLine());
 			break;
-		case SIERPINSKI_LINE_2:
+		case _draw_line_mode::SIERPINSKI_LINE_2:
 			fractal_line.reset(new SierpinskiLine2());
 			break;
-		case LEVI_LINE:
+		case _draw_line_mode::LEVI_LINE:
 			fractal_line.reset(new LeviLine());
 			break;
-		case MINKOVSKIY_LINE:
+		case _draw_line_mode::MINKOVSKIY_LINE:
 			fractal_line.reset(new MinkovskiyLine());
 			break;
 		default:
@@ -233,8 +233,6 @@ void CL_system_drawDlg::OnPaint()
 				AfxMessageBox(_T("Глубина рекурсивной прорисовки для данной кривой при текущем приближении больше чем установленное ограничение(2^16)!"));
 			}
 		}
-
-		draw_lock.unlock();
 	});
 		
 	draw_thr.join();	
@@ -286,7 +284,7 @@ void CL_system_drawDlg::OnBnClickedDownLevel()
 {
 	// TODO: добавьте свой код обработчика уведомлений
 	UpdateData();
-	m_RecNum--;
+	--m_RecNum;
 	if (CheckBeforeDraw() == FALSE)
 		return;	
 	UpdateData(FALSE);
@@ -298,7 +296,7 @@ void CL_system_drawDlg::OnBnClickedUpLevel()
 {
 	// TODO: добавьте свой код обработчика уведомлений
 	UpdateData();
-	m_RecNum++;
+	++m_RecNum;
 	if (CheckBeforeDraw() == FALSE)
 		return;	
 	UpdateData(FALSE);
@@ -321,40 +319,40 @@ void CL_system_drawDlg::OnCbnSelchangeLineCombo()
 
 	switch (m_LineComboBox.GetItemData(m_LineComboBox.GetCurSel()))
 	{
-	case CL_system_drawDlg::DRAW_LINE_DISABLED:
+	case static_cast<DWORD_PTR>(_draw_line_mode::DRAW_LINE_DISABLED):
 		break;
-	case CL_system_drawDlg::HILBERT_LINE:
-		m_DrawLineMode = HILBERT_LINE;
+	case static_cast<DWORD_PTR>(_draw_line_mode::HILBERT_LINE):
+		m_DrawLineMode = _draw_line_mode::HILBERT_LINE;
 		break;
-	case CL_system_drawDlg::SIERPINSKI_LINE:
-		m_DrawLineMode = SIERPINSKI_LINE;
+	case static_cast<DWORD_PTR>(_draw_line_mode::SIERPINSKI_LINE):
+		m_DrawLineMode = _draw_line_mode::SIERPINSKI_LINE;
 		break;
-	case CL_system_drawDlg::KOCH_LINE:
-		m_DrawLineMode = KOCH_LINE;
+	case static_cast<DWORD_PTR>(_draw_line_mode::KOCH_LINE):
+		m_DrawLineMode = _draw_line_mode::KOCH_LINE;
 		break;
-	case CL_system_drawDlg::NAKED_PIFAGORE_TREE:
-		m_DrawLineMode = NAKED_PIFAGORE_TREE;		
+	case static_cast<DWORD_PTR>(_draw_line_mode::NAKED_PIFAGORE_TREE):
+		m_DrawLineMode = _draw_line_mode::NAKED_PIFAGORE_TREE;
 		break;
-	case CL_system_drawDlg::PIFAGORE_TREE:
-		m_DrawLineMode = PIFAGORE_TREE;
+	case static_cast<DWORD_PTR>(_draw_line_mode::PIFAGORE_TREE):
+		m_DrawLineMode = _draw_line_mode::PIFAGORE_TREE;
 		break;
-	case CL_system_drawDlg::KOCH_STAR:
-		m_DrawLineMode = KOCH_STAR;
+	case static_cast<DWORD_PTR>(_draw_line_mode::KOCH_STAR):
+		m_DrawLineMode = _draw_line_mode::KOCH_STAR;
 		break;
-	case CL_system_drawDlg::DRAGON_LINE:
-		m_DrawLineMode = DRAGON_LINE;
+	case static_cast<DWORD_PTR>(_draw_line_mode::DRAGON_LINE):
+		m_DrawLineMode = _draw_line_mode::DRAGON_LINE;
 		break;		
-	case CL_system_drawDlg::HOSPER_LINE:
-		m_DrawLineMode = HOSPER_LINE;
+	case static_cast<DWORD_PTR>(_draw_line_mode::HOSPER_LINE):
+		m_DrawLineMode = _draw_line_mode::HOSPER_LINE;
 		break;
-	case CL_system_drawDlg::SIERPINSKI_LINE_2:
-		m_DrawLineMode = SIERPINSKI_LINE_2;
+	case static_cast<DWORD_PTR>(_draw_line_mode::SIERPINSKI_LINE_2):
+		m_DrawLineMode = _draw_line_mode::SIERPINSKI_LINE_2;
 		break;
-	case CL_system_drawDlg::LEVI_LINE:
-		m_DrawLineMode = LEVI_LINE;
+	case static_cast<DWORD_PTR>(_draw_line_mode::LEVI_LINE):
+		m_DrawLineMode = _draw_line_mode::LEVI_LINE;
 		break;
-	case CL_system_drawDlg::MINKOVSKIY_LINE:
-		m_DrawLineMode = MINKOVSKIY_LINE;
+	case static_cast<DWORD_PTR>(_draw_line_mode::MINKOVSKIY_LINE):
+		m_DrawLineMode = _draw_line_mode::MINKOVSKIY_LINE;
 		break;
 	default:
 		break;
@@ -383,7 +381,7 @@ BOOL CL_system_drawDlg::UpdateData(BOOL bSaveAndValidate) {
 
 	}
 	else {
-		if (m_DrawLineMode == NAKED_PIFAGORE_TREE || m_DrawLineMode == PIFAGORE_TREE) {
+		if (m_DrawLineMode == _draw_line_mode::NAKED_PIFAGORE_TREE || m_DrawLineMode == _draw_line_mode::PIFAGORE_TREE) {
 			GetDlgItem(IDC_RIGHT_WING_L)->ShowWindow(SW_SHOW);
 			GetDlgItem(IDC_LEFT_WING_L)->ShowWindow(SW_SHOW);
 			GetDlgItem(IDC_WING_L_STATIC)->ShowWindow(SW_SHOW);
@@ -410,28 +408,28 @@ BOOL CL_system_drawDlg::UpdateData(BOOL bSaveAndValidate) {
 
 void CL_system_drawDlg::OnBnClickedLeftWingL()
 {
-	left_delta++;
+	++left_delta;
 	RedrawWindow();
 }
 
 
 void CL_system_drawDlg::OnBnClickedRightWingL()
 {
-	left_delta--;
+	--left_delta;
 	RedrawWindow();
 }
 
 
 void CL_system_drawDlg::OnBnClickedLeftWingR()
 {
-	right_delta++;
+	++right_delta;
 	RedrawWindow();
 }
 
 
 void CL_system_drawDlg::OnBnClickedRightWingR()
 {
-	right_delta--;
+	--right_delta;
 	RedrawWindow();
 }
 

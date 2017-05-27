@@ -23,7 +23,7 @@ void BaseLine::Clear() {
 }
 
 //Метод задания координат
-void BaseLine::SetPen(int x, int y) {
+void BaseLine::SetPen(int x, int y) noexcept {
 	X = x;
 	Y = y;
 }
@@ -40,11 +40,11 @@ void BaseLine::line(int dir, double len) {
 }
 
 //метод для рисования квадрата длины len под углом dir из точки с координатами x, y
-void BaseLine::square(int x, int y, int dir, int len) {
+void BaseLine::square(int x, int y, int dir, double len) {
 	if (p_dc != nullptr && cur_brush != nullptr) {
 		SetPen(x, y);
 		CPoint plg[4];
-		for (auto i = 0; i < 4; i++) {
+		for (auto i = 0; i < 4; ++i) {
 			plg[i].x = x;
 			plg[i].y = y;
 			x += (int)std::round(get_cos(dir + 90 * i) * len);
@@ -62,7 +62,7 @@ void BaseLine::square(int x, int y, int dir, int len) {
 	}
 }
 
-void BaseLine::Draw(int num)
+void BaseLine::Draw(unsigned num)
 {
 	if (std::pow(count_line_on_step, num) > 65536)//2^16
 		throw TooDeepRecursionException();

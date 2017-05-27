@@ -2,12 +2,11 @@
 #include "BaseLine.h"
 
 class MinkovskiyLine : public BaseLine {
-	void A(int i, int dir);
+	void A(unsigned i, int dir);
 
 public:
 
 	MinkovskiyLine();
-	virtual ~MinkovskiyLine() {};
 
-	virtual void Draw(int n);
+	virtual void Draw(unsigned n) override;
 };
