@@ -23,7 +23,7 @@ protected:
 public:
 	BaseLine();
 	virtual ~BaseLine() = default;
-	virtual void Draw(unsigned num);
+	virtual void Draw(const unsigned& num);
 
 	void SetPaintDC(std::shared_ptr<CPaintDC> dc) { p_dc = dc; }
 	void SetRect(std::shared_ptr<CRect> rect) { p_rect = rect; }
@@ -31,9 +31,9 @@ public:
 	void Clear();
 
 protected:
-	void SetPen(int x, int y) noexcept;
-	void line(int dir, double len);
-	void square(int x, int y, int dir, double len);
+	void SetPen(const int& x, const int& y) noexcept;
+	void line(const int& dir, const double& len);
+	void square(int x, int y, const int& dir, const double& len);
 };
 
 class TooDeepRecursionException {

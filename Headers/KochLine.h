@@ -3,15 +3,17 @@
 
 class KochLine : public BaseLine {
 protected:
-	void A(unsigned i, int dir);
+	void A(const unsigned& i, const int& dir);
 
 public:
 	KochLine();
-	virtual void Draw(unsigned n) override;
+	virtual ~KochLine() = default;
+	virtual void Draw(const unsigned& n) override;
 };
 
 class KochStarLine : public KochLine {
 public:
 	KochStarLine();
-	virtual void Draw(unsigned n) override;
+	virtual ~KochStarLine() = default;
+	virtual void Draw(const unsigned& n) override;
 };

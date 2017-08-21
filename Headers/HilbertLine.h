@@ -2,13 +2,14 @@
 #include "BaseLine.h"
 
 class HilbertLine : public BaseLine {
-	void A(unsigned i);
-	void B(unsigned i);
-	void C(unsigned i);
-	void D(unsigned i);
+	void A(const unsigned& i);
+	void B(const unsigned& i);
+	void C(const unsigned& i);
+	void D(const unsigned& i);
 
 public:
 	HilbertLine();
+	virtual ~HilbertLine() = default;
 
-	virtual void Draw(unsigned n) override;
+	virtual void Draw(const unsigned& n) override;
 };
