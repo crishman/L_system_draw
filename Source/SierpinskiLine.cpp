@@ -5,7 +5,7 @@ SierpinskiLine::SierpinskiLine() :BaseLine() {
 	count_line_on_step = 4;//одна линия пораждает четыре
 }
 
-void SierpinskiLine::A(unsigned k) {
+void SierpinskiLine::A(const unsigned& k) {
 	if (k) {
 		A(k - 1);
 		line(315, line_len);
@@ -17,7 +17,7 @@ void SierpinskiLine::A(unsigned k) {
 	}
 }
 
-void SierpinskiLine::B(unsigned k) {
+void SierpinskiLine::B(const unsigned& k) {
 	if (k) {
 		B(k - 1);
 		line(225, line_len);
@@ -29,7 +29,7 @@ void SierpinskiLine::B(unsigned k) {
 	}
 }
 
-void SierpinskiLine::C(unsigned k) {
+void SierpinskiLine::C(const unsigned& k) {
 	if (k) {
 		C(k - 1);
 		line(135, line_len);
@@ -41,7 +41,7 @@ void SierpinskiLine::C(unsigned k) {
 	}
 }
 
-void SierpinskiLine::D(unsigned k) {
+void SierpinskiLine::D(const unsigned& k) {
 	if (k) {
 		D(k - 1);
 		line(45, line_len);
@@ -53,14 +53,14 @@ void SierpinskiLine::D(unsigned k) {
 	}
 }
 
-void SierpinskiLine::Draw(unsigned n) {
+void SierpinskiLine::Draw(const unsigned& n) {
 	BaseLine::Draw(n);
 	if (p_rect != nullptr) {
 		Clear();
 		line_len = p_rect->Width() / 8;
 		auto x0 = (int)std::round(p_rect->Width() / 2);
 		auto y0 = (int)std::round(p_rect->Height() / 2 - line_len);
-		decltype(n) i = 0;
+		unsigned i = 0;
 
 		do {
 			++i;
@@ -97,7 +97,7 @@ SierpinskiLine2::SierpinskiLine2() :BaseLine() {
 	count_line_on_step = 3;//одна линия пораждает три
 }
 
-void SierpinskiLine2::A(unsigned i, int dir) {
+void SierpinskiLine2::A(const unsigned& i, const int& dir) {
 	if (i) {
 		B(i - 1, dir + 60);
 		A(i - 1, dir);
@@ -107,7 +107,7 @@ void SierpinskiLine2::A(unsigned i, int dir) {
 		line(dir, line_len);
 }
 
-void SierpinskiLine2::B(unsigned i, int dir) {
+void SierpinskiLine2::B(const unsigned& i, const int& dir) {
 	if (i) {
 		A(i - 1, dir + 300);
 		B(i - 1, dir);
@@ -117,14 +117,14 @@ void SierpinskiLine2::B(unsigned i, int dir) {
 		line(dir, line_len);
 }
 
-void SierpinskiLine2::Draw(unsigned n) {
+void SierpinskiLine2::Draw(const unsigned& n) {
 	BaseLine::Draw(n);
 	if (p_rect != nullptr) {
 		Clear();
 		line_len = p_rect->Width() / 2;
 		auto x0 = (int)std::round(p_rect->Width() / 3);
 		auto y0 = (int)std::round(p_rect->Height() * 5 / 6);
-		decltype(n) i = 0;
+		unsigned i = 0;
 
 		do {
 			cur_pen.reset(new CPen(PS_SOLID, 1, RGB(200 - i * 5, 100 + i * 23, 255 - i * 15)));

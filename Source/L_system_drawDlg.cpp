@@ -173,13 +173,13 @@ void CL_system_drawDlg::OnSysCommand(UINT nID, LPARAM lParam)
 //  это автоматически выполняется рабочей областью.
 
 void CL_system_drawDlg::OnPaint()
-{	
-	std::shared_ptr<CPaintDC> dc(new CPaintDC(this));
+{		
+	auto dc = std::make_shared<CPaintDC>(this);
 
 	std::thread draw_thr([=]() {
 		std::lock_guard<std::mutex> g(draw_lock);
 
-		std::shared_ptr<BaseLine> fractal_line;
+		auto fractal_line = std::make_shared<BaseLine> ();
 
 		switch (m_DrawLineMode)
 		{
@@ -221,7 +221,7 @@ void CL_system_drawDlg::OnPaint()
 		}
 
 		if (fractal_line != nullptr) {
-			std::shared_ptr<CRect> rect(new CRect());
+			auto rect = std::make_shared<CRect>();
 			GetClientRect(*rect);
 
 			fractal_line->SetPaintDC(dc);
@@ -365,7 +365,7 @@ void CL_system_drawDlg::OnCbnSelchangeLineCombo()
 	RedrawWindow();
 }
 
-BOOL CL_system_drawDlg::CheckBeforeDraw() {
+BOOL CL_system_drawDlg::CheckBeforeDraw() const {
 	auto res = TRUE;
 
 	if (m_RecNum <= 0) {

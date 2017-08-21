@@ -2,20 +2,22 @@
 #include "BaseLine.h"
 
 class SierpinskiLine : public BaseLine {
-	void A(unsigned k);
-	void B(unsigned k);
-	void C(unsigned k);
-	void D(unsigned k);
+	void A(const unsigned& k);
+	void B(const unsigned& k);
+	void C(const unsigned& k);
+	void D(const unsigned& k);
 
 public:
 	SierpinskiLine();
-	virtual void Draw(unsigned n) override;
+	virtual ~SierpinskiLine() = default;
+	virtual void Draw(const unsigned& n) override;
 };
 
 class SierpinskiLine2 : public BaseLine {
-	void A(unsigned k, int dir);
-	void B(unsigned k, int dir);
+	void A(const unsigned& k, const int& dir);
+	void B(const unsigned& k, const int& dir);
 public:
 	SierpinskiLine2();
-	virtual void Draw(unsigned n) override;
+	virtual ~SierpinskiLine2() = default;
+	virtual void Draw(const unsigned& n) override;
 };

@@ -3,10 +3,11 @@
 
 class LeviLine : public BaseLine {
 
-	void A(unsigned i, int dir);
+	void A(const unsigned& i, const int& dir);
 
 public:
 	LeviLine();
+	virtual ~LeviLine() = default;
 
-	virtual void Draw(unsigned n) override;
+	virtual void Draw(const unsigned& n) override;
 };
