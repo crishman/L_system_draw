@@ -6,7 +6,7 @@ LeviLine::LeviLine() :BaseLine() {
 	count_line_on_step = 2;//одна линия пораждает две
 }
 
-void LeviLine::A(const unsigned& i, const int& dir) {
+void LeviLine::A(unsigned i, int dir) {
 	if (i) {
 		A(i - 1, dir + 45);
 		A(i - 1, dir - 45);
@@ -15,7 +15,7 @@ void LeviLine::A(const unsigned& i, const int& dir) {
 		line(dir, line_len);
 }
 
-void LeviLine::Draw(const unsigned& n) {
+void LeviLine::Draw(unsigned n) {
 	BaseLine::Draw(n);
 	if (p_rect != nullptr) {
 		Clear();
@@ -23,7 +23,7 @@ void LeviLine::Draw(const unsigned& n) {
 		auto x0 = (int)std::round(p_rect->Width() / 2 - line_len / 3);
 		auto y0 = (int)std::round(p_rect->Height() * 5/6);
 
-		unsigned i = 0;
+		decltype(n) i = 0;
 
 		do {
 			++i;

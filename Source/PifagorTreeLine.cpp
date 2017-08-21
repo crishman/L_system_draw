@@ -11,7 +11,7 @@ NakedPifagorTree::NakedPifagorTree() :BaseLine() {
 	count_line_on_step = 2;//одна линия пораждает две
 }
 
-void NakedPifagorTree::A(const unsigned& i, const int& dir, int x, int y) {
+void NakedPifagorTree::A(unsigned i, int dir, int x, int y) {
 	if (i) {
 		x += (int)std::round(get_cos(dir)*line_lens[line_lens.size() - i - 1]);
 		y -= (int)std::round(get_sin(dir)*line_lens[line_lens.size() - i - 1]);
@@ -25,7 +25,7 @@ void NakedPifagorTree::A(const unsigned& i, const int& dir, int x, int y) {
 	}
 }
 
-void NakedPifagorTree::Draw(const unsigned& n) {
+void NakedPifagorTree::Draw(unsigned n) {
 	BaseLine::Draw(n);
 	if (p_rect != nullptr) {
 		Clear();
@@ -33,7 +33,7 @@ void NakedPifagorTree::Draw(const unsigned& n) {
 		auto x0 = (int)std::round(p_rect->Width() / 2);
 		auto y0 = (int)std::round(p_rect->Height() / 2 + line_len);
 
-		unsigned i = 0;
+		decltype(n) i = 0;
 
 		line_lens.clear();
 
@@ -59,7 +59,7 @@ PifagorTree::PifagorTree() :BaseLine() {
 	count_line_on_step = 2;//одна линия пораждает две
 }
 
-void PifagorTree::A(const unsigned& i, const int& dir, int x, int y, const double& len) {
+void PifagorTree::A(unsigned i, int dir, int x, int y, double len) {
 	if (i) {
 		x += (int)std::round(get_cos(dir + 90)*len);
 		y -= (int)std::round(get_sin(dir + 90)*len);
@@ -77,7 +77,7 @@ void PifagorTree::A(const unsigned& i, const int& dir, int x, int y, const doubl
 		square(x, y, dir, (int)std::round(len));
 }
 
-void PifagorTree::Draw(const unsigned& n) {
+void PifagorTree::Draw(unsigned n) {
 	BaseLine::Draw(n);
 	if (p_rect != nullptr) {
 		Clear();
@@ -85,7 +85,7 @@ void PifagorTree::Draw(const unsigned& n) {
 		auto x0 = (int)std::round(p_rect->Width() / 2);
 		auto y0 = (int)std::round(p_rect->Height() / 2 + 2*line_len);
 
-		unsigned i = 0;
+		decltype(n) i = 0;
 
 		do {
 			cur_pen.reset(new CPen(PS_SOLID, 1, RGB(i * 5, 255 - i * 20, 100 + i *11)));

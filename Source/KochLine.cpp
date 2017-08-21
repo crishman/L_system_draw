@@ -5,7 +5,7 @@ KochLine::KochLine() :BaseLine() {
 	count_line_on_step = 4;//одна линия пораждает четыре
 }
 
-void KochLine::A(const unsigned& i, const int& dir) {
+void KochLine::A(unsigned i, int dir) {
 	if (i) {
 		A(i - 1, dir);
 		A(i - 1, dir + 60);
@@ -16,7 +16,7 @@ void KochLine::A(const unsigned& i, const int& dir) {
 		line(dir, line_len);
 }
 
-void KochLine::Draw(const unsigned& n) {
+void KochLine::Draw(unsigned n) {
 	BaseLine::Draw(n);
 	if (p_rect != nullptr) {
 		Clear();
@@ -24,7 +24,7 @@ void KochLine::Draw(const unsigned& n) {
 		auto x0 = (int)std::round(p_rect->Width() / 2 - line_len /2);
 		auto y0 = (int)std::round(p_rect->Height() * 2/3);
 		
-		unsigned i = 0;
+		decltype(n) i = 0;
 
 		do {
 			++i;
@@ -46,7 +46,7 @@ KochStarLine::KochStarLine() :KochLine() {
 
 }
 
-void KochStarLine::Draw(const unsigned& n) {
+void KochStarLine::Draw(unsigned n) {
 	BaseLine::Draw(n);
 	if (p_rect != nullptr) {
 		Clear();
@@ -54,7 +54,7 @@ void KochStarLine::Draw(const unsigned& n) {
 		auto x0 = (int)std::round(p_rect->Width() / 2);
 		auto y0 = (int)std::round(p_rect->Height() / 2 - line_len /2);
 
-		unsigned i = 0;
+		decltype(n) i = 0;
 
 		do {
 			++i;

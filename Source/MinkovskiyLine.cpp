@@ -5,7 +5,7 @@ MinkovskiyLine::MinkovskiyLine() :BaseLine() {
 	count_line_on_step = 8;//одна линия пораждает восемь
 }
 
-void MinkovskiyLine::A(const unsigned& i, const int& dir) {
+void MinkovskiyLine::A(unsigned i, int dir) {
 	if (i) {
 		A(i - 1, dir);
 		A(i - 1, dir + 90);
@@ -21,7 +21,7 @@ void MinkovskiyLine::A(const unsigned& i, const int& dir) {
 }
 
 
-void MinkovskiyLine::Draw(const unsigned& n) {
+void MinkovskiyLine::Draw(unsigned n) {
 	BaseLine::Draw(n);
 	if (p_rect != nullptr) {
 		Clear();
@@ -29,7 +29,7 @@ void MinkovskiyLine::Draw(const unsigned& n) {
 		auto x0 = (int)std::round(p_rect->Width() / 2 - line_len / 2);
 		auto y0 = (int)std::round(p_rect->Height() / 2);
 
-		unsigned i = 0;
+		decltype(n) i = 0;
 
 		do {
 			++i;

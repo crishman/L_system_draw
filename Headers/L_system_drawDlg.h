@@ -60,7 +60,7 @@ public:
 	BOOL UpdateData(BOOL bSaveAndValidate = TRUE);
 
 protected:
-	BOOL CheckBeforeDraw() const;
+	BOOL CheckBeforeDraw();
 public:
 	afx_msg void OnBnClickedLeftWingL();
 	afx_msg void OnBnClickedRightWingL();

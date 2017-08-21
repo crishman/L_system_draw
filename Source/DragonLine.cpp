@@ -3,11 +3,12 @@
 #include <math.h>
 #include "../Headers/AddFunctions.h"
 
+
 DragonLine::DragonLine():BaseLine(){
 	count_line_on_step = 2;//одна линия пораждает две
 }
 
-void DragonLine::A(const unsigned& i, const int& dir, int x, int y) {
+void DragonLine::A(unsigned i, int dir, int x, int y) {
 	if (i) {
 		B(i - 1, dir + 45, x, y);
 		x += (int)std::round(get_cos(dir + 45)*last_len[last_len.size() - i]);
@@ -20,7 +21,7 @@ void DragonLine::A(const unsigned& i, const int& dir, int x, int y) {
 	}
 }
 
-void DragonLine::B(const unsigned& i, const int& dir, int x, int y) {
+void DragonLine::B(unsigned i, int dir, int x, int y) {
 	if (i) {
 		B(i - 1, dir - 45, x, y);
 		x += (int)std::round(get_cos(dir - 45)*last_len[last_len.size() - i]);
@@ -32,7 +33,7 @@ void DragonLine::B(const unsigned& i, const int& dir, int x, int y) {
 	}
 }
 
-void DragonLine::Draw(const unsigned& n) {
+void DragonLine::Draw(unsigned n) {
 	BaseLine::Draw(n);
 	if (p_rect != nullptr) {
 		Clear();
@@ -40,7 +41,7 @@ void DragonLine::Draw(const unsigned& n) {
 		auto x0 = (int)std::round(p_rect->Width() / 2 - line_len / 3);
 		auto y0 = (int)std::round(p_rect->Height() / 2 + line_len /4);
 
-		unsigned i = 0;
+		decltype(n) i = 0;
 		last_len.clear();
 
 		do {

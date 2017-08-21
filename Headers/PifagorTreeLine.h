@@ -6,20 +6,19 @@ extern int left_delta;
 extern int right_delta;
 
 class NakedPifagorTree : public BaseLine {
-	void A(const unsigned& i, const int& dir, int x, int y);
+	void A(unsigned i, int dir, int x, int y);
 	std::vector<double> line_lens;
 
 public:
 	NakedPifagorTree();
-	virtual ~NakedPifagorTree() = default;
-	virtual void Draw(const unsigned& n) override;
+	virtual ~NakedPifagorTree() {};
+	virtual void Draw(unsigned n) override;
 };
 
 class PifagorTree : public BaseLine {
-	void A(const unsigned& i, const int& dir, int x, int y, const double& len);
+	void A(unsigned i, int dir, int x, int y, double len);
 
 public:
 	PifagorTree();
-	virtual ~PifagorTree() = default;
-	virtual void Draw(const unsigned& n) override;
+	virtual void Draw(unsigned n) override;
 };
