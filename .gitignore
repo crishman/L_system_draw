@@ -45,3 +45,7 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.obj
+*.log
+x64/Debug/L_system_draw.tlog/CL.command.1.tlog
+*.tlog
