@@ -3,12 +3,10 @@
 #include <map>
 #include "../Headers/AddFunctions.h"
 
-#define PI 3.14159265
-
 std::map<int, double> sin_by_dir;
 std::map<int, double> cos_by_dir;
 
-const double koef_pi = PI / 180;
+const double koef_pi = 3.14159265 / 180;
 
 double get_sin(const int& dir) {
 	auto sin_it = sin_by_dir.find(dir);

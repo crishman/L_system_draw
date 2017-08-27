@@ -21,7 +21,7 @@ protected:
 	unsigned count_line_on_step;//количество вызовов реукрсии за один шаг
 
 public:
-	BaseLine();
+	BaseLine() :X(0), Y(0), p_dc(nullptr), p_rect(nullptr), cur_pen(nullptr), cur_brush(nullptr), line_len(0), count_line_on_step(0) {}
 	virtual ~BaseLine() = default;
 	virtual void Draw(const unsigned& num);
 

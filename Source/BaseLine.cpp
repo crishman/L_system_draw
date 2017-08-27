@@ -7,14 +7,6 @@
 BOOL g_bCheckLookCurLine = FALSE;
 BOOL g_isCurDrawLine = TRUE;
 
-BaseLine::BaseLine() {
-	p_dc = nullptr;
-	p_rect = nullptr;
-	X = Y = 0;
-	line_len = 0;
-	count_line_on_step = 0;
-}
-
 void BaseLine::Clear() {
 	if (p_dc != nullptr && p_rect != nullptr) {
 		CBrush b(RGB(0, 0, 0));
