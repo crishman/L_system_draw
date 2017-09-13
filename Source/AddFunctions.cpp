@@ -3,37 +3,44 @@
 #include <map>
 #include "../Headers/AddFunctions.h"
 
-std::map<int, double> sin_by_dir;
-std::map<int, double> cos_by_dir;
+namespace custom_math {
 
-const double koef_pi = 3.14159265 / 180;
+	std::map<int, double> sin_by_dir;
+	std::map<int, double> cos_by_dir;
 
-double get_sin(const int& dir) {
-	auto sin_it = sin_by_dir.find(dir);
-	double res;
+	const double koef_pi = 3.14159265 / 180;
 
-	if (sin_it != sin_by_dir.end()) {
-		res = sin_it->second;
-	}
-	else {
-		res = std::sin(dir * koef_pi);
-		sin_by_dir.insert(std::pair<int, double>(std::move(dir), res));
-	}
+	double sin(const int& dir) {
+		auto sin_it = sin_by_dir.find(dir);
+		double res;
 
-	return res;
-}
+		if (sin_it != sin_by_dir.end()) {
+			res = sin_it->second;
+		}
+		else {
+			res = std::sin(dir * koef_pi);
+			sin_by_dir.insert(std::pair<int, double>(std::move(dir), res));
+		}
 
-double get_cos(const int& dir) {
-	auto cos_it = cos_by_dir.find(dir);
-	double res;
-
-	if (cos_it != cos_by_dir.end()) {
-		res = cos_it->second;
-	}
-	else {
-		res = std::cos(dir * koef_pi);
-		cos_by_dir.insert(std::pair<int, double>(std::move(dir), res));
+		return res;
 	}
 
-	return res;
+	double cos(const int& dir) {
+		auto cos_it = cos_by_dir.find(dir);
+		double res;
+
+		if (cos_it != cos_by_dir.end()) {
+			res = cos_it->second;
+		}
+		else {
+			res = std::cos(dir * koef_pi);
+			cos_by_dir.insert(std::pair<int, double>(std::move(dir), res));
+		}
+
+		return res;
+	}
+
+	int int_round(double&& d) {
+		return static_cast<int>(std::round(d));
+	}
 }

@@ -1,62 +1,55 @@
 #include "stdafx.h"
 #include "../Headers/BaseLine.h"
-#include <vector>
 #include "../Headers/AddFunctions.h"
-#include <math.h>
+#include <vector>
+#include <cmath>
+#include <algorithm>
 
 BOOL g_bCheckLookCurLine = FALSE;
-BOOL g_isCurDrawLine = TRUE;
 
-void BaseLine::Clear() {
-	if (p_dc != nullptr && p_rect != nullptr) {
-		CBrush b(RGB(0, 0, 0));
-		p_dc->FillRect(*p_rect, &b);
-	}
-}
-
-//Метод задания координат
-void BaseLine::SetPen(const int& x, const int& y) noexcept {
-	X = x;
-	Y = y;
-}
-
-//метод для рисования линии длины len под углом dir из точки с координатами BaseLine::X, BaseLine::Y
-void BaseLine::line(const int& dir, const double& len) {
-	if (p_dc != nullptr && cur_pen != nullptr) {
-		p_dc->SelectObject(*cur_pen);
-		p_dc->MoveTo(X, Y);
-		X += (int)std::round(get_cos(dir)*len);
-		Y -= (int)std::round(get_sin(dir)*len);
-		p_dc->LineTo(X, Y);
-	}
-}
-
-//метод для рисования квадрата длины len под углом dir из точки с координатами x, y
-void BaseLine::square(int x, int y, const int& dir, const double& len) {
-	if (p_dc != nullptr && cur_brush != nullptr) {
-		SetPen(x, y);
-		CPoint plg[4];
-		for (auto i = 0; i < 4; ++i) {
-			plg[i].x = x;
-			plg[i].y = y;
-			x += (int)std::round(get_cos(dir + 90 * i) * len);
-			y -= (int)std::round(get_sin(dir + 90 * i) * len);
+namespace fractal_lines {
+	void BaseLine::Clear() {
+		if (pdc_ != nullptr && prect_ != nullptr) {
+			CBrush b(RGB(0, 0, 0));
+			pdc_->FillRect(*prect_, &b);
 		}
+	}
 
-		CRgn   rgn;
-		rgn.CreatePolygonRgn(plg, 4, ALTERNATE);
-		p_dc->FillRgn(&rgn, cur_brush.get());
+	//метод для рисования линии длины len под углом dir из точки с координатами BaseLine::X, BaseLine::Y
+	void BaseLine::line(const int& dir, const double& len) {
+		if (pdc_ != nullptr && ppen_ != nullptr) {
+			pdc_->SelectObject(ppen_.get());
+			pdc_->MoveTo(x_, y_);
+			x_ += custom_math::int_round(std::move(custom_math::cos(dir)*len));
+			y_ -= custom_math::int_round(std::move(custom_math::sin(dir)*len));
+			pdc_->LineTo(x_, y_);
+		}
+	}
 
-		line(dir, len);
-		line(dir + 90, len);
-		line(dir + 180, len);
-		line(dir + 270, len);
+	//метод для рисования квадрата длины len под углом dir из точки с координатами x, y
+	void BaseLine::square(int x, int y, const int& dir, const double& len) {
+		if (pdc_ != nullptr && pbrush_ != nullptr) {
+			SetPen(x, y);
+			std::vector<CPoint> plg(4);
+
+			auto i = 0;
+			std::for_each(plg.begin(), plg.end(), [&x, &y, &dir, &len, &i](CPoint& p) {	p.x = x;
+			p.y = y;
+			x += custom_math::int_round(custom_math::cos(dir + 90 * i) * len);
+			y -= custom_math::int_round(custom_math::sin(dir + 90 * i) * len); });
+
+			CRgn   rgn;
+			rgn.CreatePolygonRgn(&plg[0], static_cast<int>(plg.size()), ALTERNATE);
+			pdc_->FillRgn(&rgn, pbrush_.get());
+
+			auto step = 0;
+			std::for_each(plg.begin(), plg.end(), [&step, &dir, &len, this](CPoint& p) { this->line(dir + step, len); step += 90; });
+		}
+	}
+
+	void BaseLine::Draw(const unsigned& num)
+	{
+		if (std::pow(count_line_on_step, num) > 65536)//2^16
+			throw TooDeepRecursionException();
 	}
 }
-
-void BaseLine::Draw(const unsigned& num)
-{
-	if (std::pow(count_line_on_step, num) > 65536)//2^16
-		throw TooDeepRecursionException();
-}
-

@@ -4,26 +4,12 @@
 
 #pragma once
 #include "afxwin.h"
+#include "MakeFractal.h"
 
 
 // диалоговое окно CL_system_drawDlg
 class CL_system_drawDlg : public CDialogEx
 {
-	enum class _draw_line_mode : int{
-		DRAW_LINE_DISABLED = 0,
-		HILBERT_LINE,
-		SIERPINSKI_LINE,
-		KOCH_LINE,
-		KOCH_STAR,
-		NAKED_PIFAGORE_TREE,
-		PIFAGORE_TREE,
-		DRAGON_LINE,
-		HOSPER_LINE,
-		SIERPINSKI_LINE_2,
-		LEVI_LINE,
-		MINKOVSKIY_LINE
-	};
-
 // Создание
 public:
 	CL_system_drawDlg(CWnd* pParent = nullptr);	// стандартный конструктор
@@ -51,7 +37,7 @@ protected:
 public:
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	int m_RecNum;
-	_draw_line_mode m_DrawLineMode;
+	fractal_lines::_draw_line_mode m_DrawLineMode;
 	afx_msg void OnBnClickedDownLevel();
 	afx_msg void OnBnClickedUpLevel();
 	afx_msg void OnBnClickedLookCurLine();

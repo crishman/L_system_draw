@@ -192,6 +192,7 @@
     <ClInclude Include="Headers\HosperLine.h" />
     <ClInclude Include="Headers\KochLine.h" />
     <ClInclude Include="Headers\LeviLine.h" />
+    <ClInclude Include="Headers\MakeFractal.h" />
     <ClInclude Include="Headers\MinkovskiyLine.h" />
     <ClInclude Include="Headers\PifagorTreeLine.h" />
     <ClInclude Include="Headers\SierpinskiLine.h" />

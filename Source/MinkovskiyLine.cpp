@@ -1,48 +1,47 @@
 #include "stdafx.h"
 #include "../Headers/MinkovskiyLine.h"
+#include "../Headers/AddFunctions.h"
+#include <algorithm>
 
-MinkovskiyLine::MinkovskiyLine() :BaseLine() {
-	count_line_on_step = 8;//одна линия пораждает восемь
-}
-
-void MinkovskiyLine::A(const unsigned& i, const int& dir) {
-	if (i) {
-		A(i - 1, dir);
-		A(i - 1, dir + 90);
-		A(i - 1, dir);
-		A(i - 1, dir + 270);
-		A(i - 1, dir + 270);
-		A(i - 1, dir);
-		A(i - 1, dir + 90);
-		A(i - 1, dir);
+namespace fractal_lines {
+	MinkovskiyLine::MinkovskiyLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect)
+		:BaseLine(pdc, prect)
+		, dir_steps{ 0, 90, 0, 270 }
+	{
+		count_line_on_step = 8;//одна линия пораждает восемь
 	}
-	else
-		line(dir, line_len);
-}
+
+	void MinkovskiyLine::A(const int& i, const int& dir) {
+		if (i) {
+			auto lmbdA = [&i, &dir, this](int& dir_step) { this->A(i - 1, dir + dir_step); };
+			std::for_each(dir_steps.begin(), dir_steps.end(), lmbdA);
+			std::for_each(dir_steps.rbegin(), dir_steps.rend(), lmbdA);
+		}
+		else
+			line(dir, line_len_);
+	}
 
 
-void MinkovskiyLine::Draw(const unsigned& n) {
-	BaseLine::Draw(n);
-	if (p_rect != nullptr) {
-		Clear();
-		line_len = p_rect->Width() * 3 / 4;
-		auto x0 = (int)std::round(p_rect->Width() / 2 - line_len / 2);
-		auto y0 = (int)std::round(p_rect->Height() / 2);
+	void MinkovskiyLine::Draw(const unsigned& n) {
+		BaseLine::Draw(n);
+		if (prect_ != nullptr) {
+			Clear();
+			line_len_ = prect_->Width() * 3 / 4;
+			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2 - line_len_ / 2));
+			auto y0 = custom_math::int_round(std::move(prect_->Height() / 2));
 
-		unsigned i = 0;
+			auto i = 0;
 
-		do {
-			++i;
-			cur_pen.reset(new CPen(PS_SOLID, 1, RGB(100 + i*17, 200 - i * 20, 12 + i * 25)));
-			if (g_bCheckLookCurLine) {
-				Clear();
-				if (i ^ n)
-					g_isCurDrawLine = FALSE;
-			}
-			line_len /= 4;
-			SetPen(x0, y0);
-			A(i, 0);
-			g_isCurDrawLine = TRUE;
-		} while (i ^ n);
+			do {
+				++i;
+				ppen_.reset(new CPen(PS_SOLID, 1, RGB(100 + i * 17, 200 - i * 20, 12 + i * 25)));
+				if (g_bCheckLookCurLine) {
+					Clear();
+				}
+				line_len_ /= 4;
+				SetPen(x0, y0);
+				A(i, 0);
+			} while (i != n);
+		}
 	}
 }

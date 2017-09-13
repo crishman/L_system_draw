@@ -2,14 +2,16 @@
 #include "BaseLine.h"
 #include <vector>
 
-class DragonLine : public BaseLine {
-	void A(const unsigned& i, const int& dir, int x, int y);
-	void B(const unsigned& i, const int& dir, int x, int y);
+namespace fractal_lines {
+	class DragonLine : public BaseLine {
+		void A(const int& i, const int& dir, const int& last_len_size, int x, int y);
+		void B(const int& i, const int& dir, const int& last_len_size, int x, int y);
 
-	std::vector<double> last_len;
-public:
-	DragonLine();
-	virtual ~DragonLine() = default;
+		std::vector<double> line_lens;
+	public:
+		DragonLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect);
+		virtual ~DragonLine() = default;
 
-	virtual void Draw(const unsigned& n) override;
-};
+		virtual void Draw(const unsigned& n) override;
+	};
+}

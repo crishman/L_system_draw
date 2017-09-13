@@ -1,42 +1,42 @@
 #pragma once
 #include <memory>
-#include <vector>
+#include <string>
 
 extern BOOL g_bCheckLookCurLine;
-extern BOOL g_isCurDrawLine;
 
-class BaseLine {	
-	int X;
-	int Y;
+namespace fractal_lines {
+	class BaseLine {
+	public:
+		BaseLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect) :x_(0), y_(0), pdc_(pdc), prect_(prect), ppen_(nullptr), pbrush_(nullptr), line_len_(0), count_line_on_step(0) {}
+		virtual ~BaseLine() = default;
+		virtual void Draw(const unsigned& num);
 
-	std::shared_ptr<CPaintDC> p_dc;
+		void Clear();
 
-protected:
-	std::shared_ptr<CRect> p_rect;
-	std::unique_ptr<CPen> cur_pen;
-	std::unique_ptr<CBrush> cur_brush;
+	protected:
+		void SetPen(const int& x, const int& y) noexcept { x_ = x; y_ = y; }
+		void line(const int& dir, const double& len);
+		void square(int x, int y, const int& dir, const double& len);
 
-	double line_len;
+	private:
+		int x_, y_;
+		std::shared_ptr<CPaintDC> pdc_;
 
-	unsigned count_line_on_step;//количество вызовов реукрсии за один шаг
+	protected:
+		std::shared_ptr<CRect> prect_;
+		std::unique_ptr<CPen> ppen_;//cur_pen
+		std::unique_ptr<CBrush> pbrush_;//cur_brush
 
-public:
-	BaseLine() :X(0), Y(0), p_dc(nullptr), p_rect(nullptr), cur_pen(nullptr), cur_brush(nullptr), line_len(0), count_line_on_step(0) {}
-	virtual ~BaseLine() = default;
-	virtual void Draw(const unsigned& num);
+		double line_len_;
 
-	void SetPaintDC(std::shared_ptr<CPaintDC> dc) { p_dc = dc; }
-	void SetRect(std::shared_ptr<CRect> rect) { p_rect = rect; }
-	
-	void Clear();
+		unsigned count_line_on_step;//количество вызовов реукрсии за один шаг
+	};
 
-protected:
-	void SetPen(const int& x, const int& y) noexcept;
-	void line(const int& dir, const double& len);
-	void square(int x, int y, const int& dir, const double& len);
-};
+	class TooDeepRecursionException {
+		std::string err_msg_;
+	public:
+		TooDeepRecursionException() :err_msg_("Глубина рекурсивной прорисовки для данной кривой при текущем приближении больше чем установленное ограничение(2^16)!") {};
 
-class TooDeepRecursionException {
-public:
-	TooDeepRecursionException() {};
-};
+		inline std::string GetErrMsg() const { return err_msg_; }
+	};
+}

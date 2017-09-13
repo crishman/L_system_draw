@@ -1,5 +1,9 @@
 #pragma once
-#include "BaseLine.h"
 
-double get_sin(const int& dir);
-double get_cos(const int& dir);
+namespace custom_math {
+	double sin(const int& dir);
+	double cos(const int& dir);
+
+	int int_round(double&& d);
+}
+

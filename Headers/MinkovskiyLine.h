@@ -1,13 +1,17 @@
 #pragma once
 #include "BaseLine.h"
+#include <vector>
 
-class MinkovskiyLine : public BaseLine {
-	void A(const unsigned& i, const int& dir);
+namespace fractal_lines {
+	class MinkovskiyLine : public BaseLine {
+		void A(const int& i, const int& dir);
+		std::vector<int> dir_steps;
 
-public:
+	public:
 
-	MinkovskiyLine();
-	virtual ~MinkovskiyLine() = default;
+		MinkovskiyLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect);
+		virtual ~MinkovskiyLine() = default;
 
-	virtual void Draw(const unsigned& n) override;
-};
+		virtual void Draw(const unsigned& n) override;
+	};
+}
