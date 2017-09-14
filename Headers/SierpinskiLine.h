@@ -11,7 +11,7 @@ namespace fractal_lines {
 	public:
 		SierpinskiLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect);
 		virtual ~SierpinskiLine() = default;
-		virtual void Draw(const unsigned& n) override;
+		virtual bool Draw(const unsigned& n) override;
 	};
 
 	class SierpinskiLine2 : public BaseLine {
@@ -20,6 +20,6 @@ namespace fractal_lines {
 	public:
 		SierpinskiLine2(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect);
 		virtual ~SierpinskiLine2() = default;
-		virtual void Draw(const unsigned& n) override;
+		virtual bool Draw(const unsigned& n) override;
 	};
 }

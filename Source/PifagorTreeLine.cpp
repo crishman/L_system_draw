@@ -2,10 +2,11 @@
 #include "../Headers/PifagorTreeLine.h"
 #include "../Headers/AddFunctions.h"
 
-int left_delta = 0;
-int right_delta = 0;
 
 namespace fractal_lines {
+	int left_delta = 0;
+	int right_delta = 0;
+
 	//naked Pifagore tree
 	NakedPifagorTree::NakedPifagorTree(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect) :BaseLine(pdc, prect) {
 		count_line_on_step = 2;//одна линия пораждает две
@@ -25,10 +26,8 @@ namespace fractal_lines {
 		}
 	}
 
-	void NakedPifagorTree::Draw(const unsigned& n) {
-		BaseLine::Draw(n);
-		if (prect_ != nullptr) {
-			Clear();
+	bool NakedPifagorTree::Draw(const unsigned& n) {
+		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 4;
 			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2));
 			auto y0 = custom_math::int_round(std::move(prect_->Height() / 2 + line_len_));
@@ -47,7 +46,10 @@ namespace fractal_lines {
 				A(i, 90, static_cast<int>(line_lens.size()), x0, y0);
 				++i;
 			} while (i != n);
+
+			return true;
 		}
+		return false;
 	}
 
 	//Pifagore tree
@@ -79,10 +81,8 @@ namespace fractal_lines {
 			square(x, y, dir, custom_math::int_round(std::move(const_cast<double&>(len))));
 	}
 
-	void PifagorTree::Draw(const unsigned& n) {
-		BaseLine::Draw(n);
-		if (prect_ != nullptr) {
-			Clear();
+	bool PifagorTree::Draw(const unsigned& n) {
+		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 8;
 			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2));
 			auto y0 = custom_math::int_round(std::move(prect_->Height() / 2 + 2*line_len_));
@@ -99,6 +99,9 @@ namespace fractal_lines {
 				A(i, 0, x0, y0, line_len_);
 				++i;
 			} while (i != n);
+
+			return true;
 		}
+		return false;
 	}
 }

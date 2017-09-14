@@ -7,9 +7,10 @@ extern BOOL g_bCheckLookCurLine;
 namespace fractal_lines {
 	class BaseLine {
 	public:
+		BaseLine() :x_(0), y_(0), pdc_(nullptr), prect_(nullptr), ppen_(nullptr), pbrush_(nullptr), line_len_(0), count_line_on_step(0) {}
 		BaseLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect) :x_(0), y_(0), pdc_(pdc), prect_(prect), ppen_(nullptr), pbrush_(nullptr), line_len_(0), count_line_on_step(0) {}
 		virtual ~BaseLine() = default;
-		virtual void Draw(const unsigned& num);
+		virtual bool Draw(const unsigned& num);
 
 		void Clear();
 

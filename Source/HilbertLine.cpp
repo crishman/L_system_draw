@@ -55,10 +55,8 @@ namespace fractal_lines {
 		}
 	}
 
-	void HilbertLine::Draw(const unsigned& n) {
-		BaseLine::Draw(n);
-		if (prect_ != nullptr) {
-			Clear();
+	bool HilbertLine::Draw(const unsigned& n) {
+		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 2;
 			auto x0 = custom_math::int_round(std::move(line_len_));
 			auto y0 = custom_math::int_round(std::move(prect_->Height() / 2));
@@ -76,6 +74,9 @@ namespace fractal_lines {
 				SetPen(x0, y0);
 				A(i);
 			} while (i != n);
+
+			return true;
 		}
+		return false;
 	}
 }

@@ -10,6 +10,6 @@ namespace fractal_lines {
 		LeviLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect);
 		virtual ~LeviLine() = default;
 
-		virtual void Draw(const unsigned& n) override;
+		virtual bool Draw(const unsigned& n) override;
 	};
 }

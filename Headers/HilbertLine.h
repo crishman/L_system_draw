@@ -12,6 +12,6 @@ namespace fractal_lines {
 		HilbertLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect);
 		virtual ~HilbertLine() = default;
 
-		virtual void Draw(const unsigned& n) override;
+		virtual bool Draw(const unsigned& n) override;
 	};
 }

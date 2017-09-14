@@ -55,10 +55,8 @@ namespace fractal_lines {
 		}
 	}
 
-	void SierpinskiLine::Draw(const unsigned& n) {
-		BaseLine::Draw(n);
-		if (prect_ != nullptr) {
-			Clear();
+	bool SierpinskiLine::Draw(const unsigned& n) {
+		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 8;
 			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2));
 			auto y0 = custom_math::int_round(std::move(prect_->Height() / 2 - line_len_));
@@ -86,7 +84,10 @@ namespace fractal_lines {
 				D(i);
 				line(45, line_len_);
 			} while (i != n);
+
+			return true;
 		}
+		return false;
 	}
 
 	//Sirpinski2
@@ -114,10 +115,8 @@ namespace fractal_lines {
 			line(dir, line_len_);
 	}
 
-	void SierpinskiLine2::Draw(const unsigned& n) {
-		BaseLine::Draw(n);
-		if (prect_ != nullptr) {
-			Clear();
+	bool SierpinskiLine2::Draw(const unsigned& n) {
+		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 2;
 			auto x0 = custom_math::int_round(std::move(prect_->Width() / 3));
 			auto y0 = custom_math::int_round(std::move(prect_->Height() * 5 / 6));
@@ -136,6 +135,9 @@ namespace fractal_lines {
 				line_len_ /= 2;
 				++i;
 			} while (i != n);
+
+			return true;
 		}
+		return false;
 	}
 }

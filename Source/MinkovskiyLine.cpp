@@ -22,10 +22,8 @@ namespace fractal_lines {
 	}
 
 
-	void MinkovskiyLine::Draw(const unsigned& n) {
-		BaseLine::Draw(n);
-		if (prect_ != nullptr) {
-			Clear();
+	bool MinkovskiyLine::Draw(const unsigned& n) {
+		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() * 3 / 4;
 			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2 - line_len_ / 2));
 			auto y0 = custom_math::int_round(std::move(prect_->Height() / 2));
@@ -42,6 +40,9 @@ namespace fractal_lines {
 				SetPen(x0, y0);
 				A(i, 0);
 			} while (i != n);
+
+			return true;
 		}
+		return false;
 	}
 }

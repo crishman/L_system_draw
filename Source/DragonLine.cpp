@@ -32,10 +32,8 @@ namespace fractal_lines {
 		}
 	}
 
-	void DragonLine::Draw(const unsigned& n) {
-		BaseLine::Draw(n);
-		if (prect_ != nullptr) {
-			Clear();
+	bool DragonLine::Draw(const unsigned& n) {
+		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 3;
 			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2 - line_len_ / 3));
 			auto y0 = custom_math::int_round(std::move(prect_->Height() / 2 + line_len_ / 4));
@@ -54,6 +52,9 @@ namespace fractal_lines {
 				line_lens.push_back(line_len_);
 				A(i, 0, static_cast<int>(line_lens.size()), x0, y0);
 			} while (i != n);
+		
+			return true;
 		}
-	}
+		return false;
+	}	
 }

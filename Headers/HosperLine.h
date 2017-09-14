@@ -9,6 +9,6 @@ namespace fractal_lines {
 	public:
 		HosperLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect);
 		virtual ~HosperLine() = default;
-		virtual void Draw(const unsigned& n) override;
+		virtual bool Draw(const unsigned& n) override;
 	};
 }

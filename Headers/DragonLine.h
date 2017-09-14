@@ -12,6 +12,6 @@ namespace fractal_lines {
 		DragonLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect);
 		virtual ~DragonLine() = default;
 
-		virtual void Draw(const unsigned& n) override;
+		virtual bool Draw(const unsigned& n) override;
 	};
 }

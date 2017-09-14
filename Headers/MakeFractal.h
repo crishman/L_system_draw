@@ -29,7 +29,7 @@ namespace fractal_lines {
 	template<typename U, typename R>
 	auto MakeFractalLines(std::shared_ptr<U> pdc, std::shared_ptr<R> prect, const _draw_line_mode& mode)
 	{
-		auto fractal_line = std::make_unique<BaseLine>(pdc, prect);
+		auto fractal_line = std::make_unique<BaseLine>();
 		switch (mode)
 		{
 			case _draw_line_mode::HILBERT_LINE:

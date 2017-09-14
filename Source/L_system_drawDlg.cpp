@@ -340,8 +340,8 @@ BOOL CL_system_drawDlg::UpdateData(BOOL bSaveAndValidate) {
 			GetDlgItem(IDC_RIGHT_WING_R)->ShowWindow(SW_SHOW);
 			GetDlgItem(IDC_LEFT_WING_R)->ShowWindow(SW_SHOW);
 			GetDlgItem(IDC_WING_R_STATIC)->ShowWindow(SW_SHOW);
-			left_delta = 0;
-			right_delta = 0;
+			fractal_lines::left_delta = 0;
+			fractal_lines::right_delta = 0;
 		}
 		else {
 			GetDlgItem(IDC_RIGHT_WING_L)->ShowWindow(SW_HIDE);
@@ -350,8 +350,8 @@ BOOL CL_system_drawDlg::UpdateData(BOOL bSaveAndValidate) {
 			GetDlgItem(IDC_RIGHT_WING_R)->ShowWindow(SW_HIDE);
 			GetDlgItem(IDC_LEFT_WING_R)->ShowWindow(SW_HIDE);
 			GetDlgItem(IDC_WING_R_STATIC)->ShowWindow(SW_HIDE);
-			left_delta = 0;
-			right_delta = 0;
+			fractal_lines::left_delta = 0;
+			fractal_lines::right_delta = 0;
 		}
 	}
 
@@ -360,28 +360,28 @@ BOOL CL_system_drawDlg::UpdateData(BOOL bSaveAndValidate) {
 
 void CL_system_drawDlg::OnBnClickedLeftWingL()
 {
-	++left_delta;
+	++fractal_lines::left_delta;
 	RedrawWindow();
 }
 
 
 void CL_system_drawDlg::OnBnClickedRightWingL()
 {
-	--left_delta;
+	--fractal_lines::left_delta;
 	RedrawWindow();
 }
 
 
 void CL_system_drawDlg::OnBnClickedLeftWingR()
 {
-	++right_delta;
+	++fractal_lines::right_delta;
 	RedrawWindow();
 }
 
 
 void CL_system_drawDlg::OnBnClickedRightWingR()
 {
-	--right_delta;
+	--fractal_lines::right_delta;
 	RedrawWindow();
 }
 

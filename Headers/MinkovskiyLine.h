@@ -12,6 +12,6 @@ namespace fractal_lines {
 		MinkovskiyLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect);
 		virtual ~MinkovskiyLine() = default;
 
-		virtual void Draw(const unsigned& n) override;
+		virtual bool Draw(const unsigned& n) override;
 	};
 }

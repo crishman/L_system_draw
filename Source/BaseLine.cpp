@@ -47,9 +47,16 @@ namespace fractal_lines {
 		}
 	}
 
-	void BaseLine::Draw(const unsigned& num)
+	bool BaseLine::Draw(const unsigned& num)
 	{
 		if (std::pow(count_line_on_step, num) > 65536)//2^16
 			throw TooDeepRecursionException();
+
+		if (prect_ != nullptr) {
+			Clear();
+			return true;
+		}
+
+		return false;
 	}
 }

@@ -16,10 +16,8 @@ namespace fractal_lines {
 			line(dir, line_len_);
 	}
 
-	void LeviLine::Draw(const unsigned& n) {
-		BaseLine::Draw(n);
-		if (prect_ != nullptr) {
-			Clear();
+	bool LeviLine::Draw(const unsigned& n) {
+		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 3;
 			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2 - line_len_ / 3));
 			auto y0 = custom_math::int_round(std::move(prect_->Height() * 5 / 6));
@@ -37,6 +35,9 @@ namespace fractal_lines {
 				SetPen(x0, y0);
 				A(i, 0);
 			} while (i != n);
+
+			return true;
 		}
+		return false;
 	}
 }

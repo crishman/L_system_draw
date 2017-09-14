@@ -20,10 +20,8 @@ namespace fractal_lines {
 			line(dir, line_len_);
 	}
 
-	void KochLine::Draw(const unsigned& n) {
-		BaseLine::Draw(n);
-		if (prect_ != nullptr) {
-			Clear();
+	bool KochLine::Draw(const unsigned& n) {
+		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() * 3 / 4;
 			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2 - line_len_ / 2));
 			auto y0 = custom_math::int_round(std::move(prect_->Height() * 2 / 3));
@@ -40,13 +38,14 @@ namespace fractal_lines {
 				SetPen(x0, y0);
 				A(i, 0);
 			} while (i != n);
+
+			return true;
 		}
+		return false;
 	}
 
-	void KochStarLine::Draw(const unsigned& n) {
-		BaseLine::Draw(n);
-		if (prect_ != nullptr) {
-			Clear();
+	bool KochStarLine::Draw(const unsigned& n) {
+		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 3;
 			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2));
 			auto y0 = custom_math::int_round(std::move(prect_->Height() / 2 - line_len_ / 2));
@@ -65,6 +64,9 @@ namespace fractal_lines {
 				SetPen(x0, y0);
 				std::for_each(vdir.begin(), vdir.end(), [&i, this](int& dir) { this->A(i, dir); });
 			} while (i != n);
+
+			return true;
 		}
+		return false;
 	}
 }
