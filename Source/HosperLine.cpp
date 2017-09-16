@@ -40,23 +40,23 @@ namespace fractal_lines {
 	bool HosperLine::Draw(const unsigned& n) {
 		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 4;
-			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2));
-			auto y0 = custom_math::int_round(std::move(prect_->Height() / 2));
+			auto x0 = custom_math::int_round(prect_->Width() / 2);
+			auto y0 = custom_math::int_round(prect_->Height() / 2);
 
 			auto i = 0;
 
-			do {
-				++i;
-				ppen_.reset(new CPen(PS_SOLID, 1, RGB(40, 210 - i * 10, 111 + i * 20)));
+			do {				
+				ResetPen();
 				if (g_bCheckLookCurLine) {
 					Clear();
 				}
 				line_len_ /= 2.5;
 				if (i != 1) {
-					x0 -= custom_math::int_round(std::move(line_len_*std::sqrt(3) / 2));
+					x0 -= custom_math::int_round(line_len_*std::sqrt(3) / 2);
 					y0 -= custom_math::int_round(std::move(line_len_));
 				}
 				SetPen(x0, y0);
+				++i;
 				A(i, 90);
 			} while (i != n);
 

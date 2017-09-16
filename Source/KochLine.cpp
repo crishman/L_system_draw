@@ -23,19 +23,19 @@ namespace fractal_lines {
 	bool KochLine::Draw(const unsigned& n) {
 		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() * 3 / 4;
-			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2 - line_len_ / 2));
-			auto y0 = custom_math::int_round(std::move(prect_->Height() * 2 / 3));
+			auto x0 = custom_math::int_round(prect_->Width() / 2 - line_len_ / 2);
+			auto y0 = custom_math::int_round(prect_->Height() * 2 / 3);
 
 			auto i = 0;
 
-			do {
-				++i;
-				ppen_.reset(new CPen(PS_SOLID, 1, RGB(0, 255 - i * 20, 0 + i * 15)));
+			do {				
+				ResetPen();
 				if (g_bCheckLookCurLine) {
 					Clear();
 				}
 				line_len_ /= 3;
 				SetPen(x0, y0);
+				++i;
 				A(i, 0);
 			} while (i != n);
 
@@ -47,21 +47,21 @@ namespace fractal_lines {
 	bool KochStarLine::Draw(const unsigned& n) {
 		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 3;
-			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2));
-			auto y0 = custom_math::int_round(std::move(prect_->Height() / 2 - line_len_ / 2));
+			auto x0 = custom_math::int_round(prect_->Width() / 2);
+			auto y0 = custom_math::int_round(prect_->Height() / 2 - line_len_ / 2);
 
 			auto i = 0;
 
 			std::vector<int> vdir{ 300, 180, 60 };
 
 			do {
-				++i;
-				ppen_.reset(new CPen(PS_SOLID, 1, RGB(0, 255 - i * 20, 0 + i * 15)));
+				ResetPen();
 				if (g_bCheckLookCurLine) {
 					Clear();
 				}
 				line_len_ /= 3;
 				SetPen(x0, y0);
+				++i;
 				std::for_each(vdir.begin(), vdir.end(), [&i, this](int& dir) { this->A(i, dir); });
 			} while (i != n);
 

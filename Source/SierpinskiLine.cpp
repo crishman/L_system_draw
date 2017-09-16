@@ -58,23 +58,24 @@ namespace fractal_lines {
 	bool SierpinskiLine::Draw(const unsigned& n) {
 		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 8;
-			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2));
-			auto y0 = custom_math::int_round(std::move(prect_->Height() / 2 - line_len_));
+			auto x0 = custom_math::int_round(prect_->Width() / 2);
+			auto y0 = custom_math::int_round(prect_->Height() / 2 - line_len_);
 			auto i = 0;
 
 			do {
-				++i;
-				ppen_.reset(new CPen(PS_SOLID, 1, RGB(255 - i * 5, 255 - i * 23, 255 - i * 30)));
+				ResetPen();
 
 				if (g_bCheckLookCurLine) {
 					Clear();
 				}
 
-				x0 = custom_math::int_round(std::move(x0 - line_len_ * 7 / 9));
+				x0 = custom_math::int_round(x0 - line_len_ * 7 / 9);
 				line_len_ /= 2;
-				y0 = custom_math::int_round(std::move(y0 - line_len_ * 4 / 5));
+				y0 = custom_math::int_round(y0 - line_len_ * 4 / 5);
 				SetPen(x0, y0);
 
+
+				++i;
 				A(i);
 				line(315, line_len_);
 				B(i);
@@ -118,12 +119,12 @@ namespace fractal_lines {
 	bool SierpinskiLine2::Draw(const unsigned& n) {
 		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 2;
-			auto x0 = custom_math::int_round(std::move(prect_->Width() / 3));
-			auto y0 = custom_math::int_round(std::move(prect_->Height() * 5 / 6));
+			auto x0 = custom_math::int_round(prect_->Width() / 3);
+			auto y0 = custom_math::int_round(prect_->Height() * 5 / 6);
 			auto i = 0;
 
 			do {
-				ppen_.reset(new CPen(PS_SOLID, 1, RGB(200 - i * 5, 100 + i * 23, 255 - i * 15)));
+				ResetPen();
 
 				if (g_bCheckLookCurLine) {
 					Clear();

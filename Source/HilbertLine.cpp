@@ -59,19 +59,19 @@ namespace fractal_lines {
 		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 2;
 			auto x0 = custom_math::int_round(std::move(line_len_));
-			auto y0 = custom_math::int_round(std::move(prect_->Height() / 2));
+			auto y0 = custom_math::int_round(prect_->Height() / 2);
 			auto i = 0;
 
-			do {
-				++i;
-				ppen_.reset(new CPen(PS_SOLID, 1, RGB(255 - i * 25, 255 - i * 10, 255 - i * 15)));
+			do {				
+				ResetPen();
 				if (g_bCheckLookCurLine) {
 					Clear();
 				}
 				line_len_ /= 2;
-				x0 = custom_math::int_round(std::move(x0 + (line_len_ / 2)));
-				y0 = custom_math::int_round(std::move(y0 - (line_len_ / 2)));
+				x0 = custom_math::int_round(x0 + (line_len_ / 2));
+				y0 = custom_math::int_round(y0 - (line_len_ / 2));
 				SetPen(x0, y0);
+				++i;
 				A(i);
 			} while (i != n);
 

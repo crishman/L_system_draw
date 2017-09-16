@@ -26,8 +26,8 @@ namespace fractal_lines {
 		MINKOVSKIY_LINE
 	};
 
-	template<typename U, typename R>
-	auto MakeFractalLines(std::shared_ptr<U> pdc, std::shared_ptr<R> prect, const _draw_line_mode& mode)
+	template<typename T, typename U>
+	auto MakeFractalLines(std::shared_ptr<T> pdc, std::shared_ptr<U> prect, const _draw_line_mode& mode)
 	{
 		auto fractal_line = std::make_unique<BaseLine>();
 		switch (mode)

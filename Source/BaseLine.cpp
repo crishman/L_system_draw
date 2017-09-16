@@ -4,6 +4,8 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include <random>
+#include <ctime>
 
 BOOL g_bCheckLookCurLine = FALSE;
 
@@ -20,8 +22,8 @@ namespace fractal_lines {
 		if (pdc_ != nullptr && ppen_ != nullptr) {
 			pdc_->SelectObject(ppen_.get());
 			pdc_->MoveTo(x_, y_);
-			x_ += custom_math::int_round(std::move(custom_math::cos(dir)*len));
-			y_ -= custom_math::int_round(std::move(custom_math::sin(dir)*len));
+			x_ += custom_math::int_round(custom_math::cos(dir)*len);
+			y_ -= custom_math::int_round(custom_math::sin(dir)*len);
 			pdc_->LineTo(x_, y_);
 		}
 	}
@@ -34,9 +36,9 @@ namespace fractal_lines {
 
 			auto i = 0;
 			std::for_each(plg.begin(), plg.end(), [&x, &y, &dir, &len, &i](CPoint& p) {	p.x = x;
-			p.y = y;
-			x += custom_math::int_round(custom_math::cos(dir + 90 * i) * len);
-			y -= custom_math::int_round(custom_math::sin(dir + 90 * i) * len); });
+																						p.y = y;
+																						x += custom_math::int_round(custom_math::cos(dir + 90 * i) * len);
+																						y -= custom_math::int_round(custom_math::sin(dir + 90 * i) * len); });
 
 			CRgn   rgn;
 			rgn.CreatePolygonRgn(&plg[0], static_cast<int>(plg.size()), ALTERNATE);
@@ -54,9 +56,21 @@ namespace fractal_lines {
 
 		if (prect_ != nullptr) {
 			Clear();
+			std::srand(static_cast<unsigned int>(std::time(nullptr)));
 			return true;
 		}
 
 		return false;
+	}
+
+	void BaseLine::ResetPen() {
+		auto r = []() { return rand() % 255; };
+		ppen_.reset(new CPen(PS_SOLID, 1, RGB(r(), r(), r())));
+	}
+
+	void BaseLine::ResetBrush() {
+		auto r = []() { return rand() % 255; };
+		pbrush_.reset(new CBrush());
+		pbrush_->CreateSolidBrush(RGB(r(), r(), r()));
 	}
 }

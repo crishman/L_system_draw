@@ -14,8 +14,8 @@ namespace fractal_lines {
 
 	void NakedPifagorTree::A(const int& i, const int& dir, const int& line_lens_size, int x, int y) {
 		if (i) {
-			x += custom_math::int_round(std::move(custom_math::cos(dir)*line_lens[line_lens_size - i - 1]));
-			y -= custom_math::int_round(std::move(custom_math::sin(dir)*line_lens[line_lens_size - i - 1]));
+			x += custom_math::int_round(custom_math::cos(dir)*line_lens[line_lens_size - i - 1]);
+			y -= custom_math::int_round(custom_math::sin(dir)*line_lens[line_lens_size - i - 1]);
 
 			A(i - 1, dir + 45 + left_delta, line_lens_size, x, y);
 			A(i - 1, dir + 315 + right_delta, line_lens_size, x, y);
@@ -29,15 +29,15 @@ namespace fractal_lines {
 	bool NakedPifagorTree::Draw(const unsigned& n) {
 		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 4;
-			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2));
-			auto y0 = custom_math::int_round(std::move(prect_->Height() / 2 + line_len_));
+			auto x0 = custom_math::int_round(prect_->Width() / 2);
+			auto y0 = custom_math::int_round(prect_->Height() / 2 + line_len_);
 
 			auto i = 0;
 
 			line_lens.clear();
 
 			do {
-				ppen_.reset(new CPen(PS_SOLID, 1, RGB(i * 25, 255 - i * 20, 0)));
+				ResetPen();
 				if (g_bCheckLookCurLine) {
 					Clear();
 				}
@@ -62,20 +62,20 @@ namespace fractal_lines {
 		if (i) {
 			x += custom_math::int_round(std::move(custom_math::cos(dir + 90)*len));
 			y -= custom_math::int_round(std::move(custom_math::sin(dir + 90)*len));
-			auto len1 = custom_math::int_round(std::move(len * custom_math::cos(45 + left_delta + right_delta)));
+			auto len1 = custom_math::int_round(len * custom_math::cos(45 + left_delta + right_delta));
 			A(i - 1
 			  , dir + 45 + left_delta + right_delta
 			  , x
 			  , y
 			  , len1);
 
-			x += custom_math::int_round(std::move(custom_math::cos(dir + 45 + left_delta + right_delta)*len1));
-			y -= custom_math::int_round(std::move(custom_math::sin(dir + 45 + left_delta + right_delta)*len1));
+			x += custom_math::int_round(custom_math::cos(dir + 45 + left_delta + right_delta)*len1);
+			y -= custom_math::int_round(custom_math::sin(dir + 45 + left_delta + right_delta)*len1);
 			A(i - 1
 			  , dir - 45 + right_delta + left_delta
 			  , x
 			  , y
-			  , custom_math::int_round(std::move(len * custom_math::sin(45 + left_delta + right_delta))));
+			  , custom_math::int_round(len * custom_math::sin(45 + left_delta + right_delta)));
 		}
 		else
 			square(x, y, dir, custom_math::int_round(std::move(const_cast<double&>(len))));
@@ -84,15 +84,14 @@ namespace fractal_lines {
 	bool PifagorTree::Draw(const unsigned& n) {
 		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 8;
-			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2));
-			auto y0 = custom_math::int_round(std::move(prect_->Height() / 2 + 2*line_len_));
+			auto x0 = custom_math::int_round(prect_->Width() / 2);
+			auto y0 = custom_math::int_round(prect_->Height() / 2 + 2*line_len_);
 
 			auto i = 0;
 
 			do {
-				ppen_.reset(new CPen(PS_SOLID, 1, RGB(i * 5, 255 - i * 20, 100 + i *11)));
-				pbrush_.reset(new CBrush());
-				pbrush_->CreateSolidBrush(RGB(111, i*22, 200 - i*10));
+				ResetPen();
+				ResetBrush();
 				if (g_bCheckLookCurLine) {
 					Clear();
 				}

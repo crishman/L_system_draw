@@ -12,21 +12,22 @@ namespace fractal_lines {
 		virtual ~BaseLine() = default;
 		virtual bool Draw(const unsigned& num);
 
-		void Clear();
-
 	protected:
 		void SetPen(const int& x, const int& y) noexcept { x_ = x; y_ = y; }
 		void line(const int& dir, const double& len);
 		void square(int x, int y, const int& dir, const double& len);
+		void ResetPen();
+		void ResetBrush();
+		void Clear();
 
 	private:
 		int x_, y_;
 		std::shared_ptr<CPaintDC> pdc_;
-
-	protected:
-		std::shared_ptr<CRect> prect_;
 		std::unique_ptr<CPen> ppen_;//cur_pen
 		std::unique_ptr<CBrush> pbrush_;//cur_brush
+
+	protected:
+		std::shared_ptr<CRect> prect_;	
 
 		double line_len_;
 

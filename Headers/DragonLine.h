@@ -4,8 +4,8 @@
 
 namespace fractal_lines {
 	class DragonLine : public BaseLine {
-		void A(const int& i, const int& dir, const int& last_len_size, int x, int y);
-		void B(const int& i, const int& dir, const int& last_len_size, int x, int y);
+		void A(const int& i, int&& dir, const int& last_len_size, int x, int y);
+		void B(const int& i, int&& dir, const int& last_len_size, int x, int y);
 
 		std::vector<double> line_lens;
 	public:

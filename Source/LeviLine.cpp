@@ -19,20 +19,20 @@ namespace fractal_lines {
 	bool LeviLine::Draw(const unsigned& n) {
 		if (BaseLine::Draw(n)){
 			line_len_ = prect_->Width() / 3;
-			auto x0 = custom_math::int_round(std::move(prect_->Width() / 2 - line_len_ / 3));
-			auto y0 = custom_math::int_round(std::move(prect_->Height() * 5 / 6));
+			auto x0 = custom_math::int_round(prect_->Width() / 2 - line_len_ / 3);
+			auto y0 = custom_math::int_round(prect_->Height() * 5 / 6);
 
 			auto i = 0;
 
 			do {
-				++i;
-				ppen_.reset(new CPen(PS_SOLID, 1, RGB(180 - i * 15, 70, 255 - i * 15)));
+				ResetPen();
 				if (g_bCheckLookCurLine) {
 					Clear();
 				}
 
 				line_len_ = line_len_ / std::sqrt(2);
 				SetPen(x0, y0);
+				++i;
 				A(i, 0);
 			} while (i != n);
 
