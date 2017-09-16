@@ -2,35 +2,28 @@
 #include "../Headers/BaseLine.h"
 #include "../Headers/AddFunctions.h"
 #include <vector>
-#include <cmath>
 #include <algorithm>
 #include <random>
 #include <ctime>
 
-BOOL g_bCheckLookCurLine = FALSE;
-
 namespace fractal_lines {
-	void BaseLine::Clear() {
-		if (pdc_ != nullptr && prect_ != nullptr) {
-			CBrush b(RGB(0, 0, 0));
-			pdc_->FillRect(*prect_, &b);
-		}
-	}
+
+	BOOL g_bCheckLookCurLine = FALSE;
 
 	//метод для рисования линии длины len под углом dir из точки с координатами BaseLine::X, BaseLine::Y
 	void BaseLine::line(const int& dir, const double& len) {
-		if (pdc_ != nullptr && ppen_ != nullptr) {
-			pdc_->SelectObject(ppen_.get());
-			pdc_->MoveTo(x_, y_);
+		if (pdc_.IsExist() && prect_.IsExist()) {
+			pdc_.SetPen(ppen_);
+			pdc_.MoveTo(x_, y_);
 			x_ += custom_math::int_round(custom_math::cos(dir)*len);
 			y_ -= custom_math::int_round(custom_math::sin(dir)*len);
-			pdc_->LineTo(x_, y_);
+			pdc_.LineTo(x_, y_);
 		}
 	}
 
 	//метод для рисования квадрата длины len под углом dir из точки с координатами x, y
 	void BaseLine::square(int x, int y, const int& dir, const double& len) {
-		if (pdc_ != nullptr && pbrush_ != nullptr) {
+		if (pdc_.IsExist() && pbrush_.IsExist()) {
 			SetPen(x, y);
 			std::vector<CPoint> plg(4);
 
@@ -40,9 +33,7 @@ namespace fractal_lines {
 																						x += custom_math::int_round(custom_math::cos(dir + 90 * i) * len);
 																						y -= custom_math::int_round(custom_math::sin(dir + 90 * i) * len); });
 
-			CRgn   rgn;
-			rgn.CreatePolygonRgn(&plg[0], static_cast<int>(plg.size()), ALTERNATE);
-			pdc_->FillRgn(&rgn, pbrush_.get());
+			pdc_.SetNewBack(pbrush_, plg);
 
 			auto step = 0;
 			std::for_each(plg.begin(), plg.end(), [&step, &dir, &len, this](CPoint& p) { this->line(dir + step, len); step += 90; });
@@ -54,23 +45,12 @@ namespace fractal_lines {
 		if (std::pow(count_line_on_step, num) > 65536)//2^16
 			throw TooDeepRecursionException();
 
-		if (prect_ != nullptr) {
+		if (prect_.IsExist()) {
 			Clear();
 			std::srand(static_cast<unsigned int>(std::time(nullptr)));
 			return true;
 		}
 
 		return false;
-	}
-
-	void BaseLine::ResetPen() {
-		auto r = []() { return rand() % 255; };
-		ppen_.reset(new CPen(PS_SOLID, 1, RGB(r(), r(), r())));
-	}
-
-	void BaseLine::ResetBrush() {
-		auto r = []() { return rand() % 255; };
-		pbrush_.reset(new CBrush());
-		pbrush_->CreateSolidBrush(RGB(r(), r(), r()));
 	}
 }

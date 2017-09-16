@@ -190,9 +190,11 @@
     <ClInclude Include="Headers\DragonLine.h" />
     <ClInclude Include="Headers\HilbertLine.h" />
     <ClInclude Include="Headers\HosperLine.h" />
+    <ClInclude Include="Headers\InterfacePaintPrimitive.h" />
     <ClInclude Include="Headers\KochLine.h" />
     <ClInclude Include="Headers\LeviLine.h" />
     <ClInclude Include="Headers\MakeFractal.h" />
+    <ClInclude Include="Headers\MFCPaintPrimitive.h" />
     <ClInclude Include="Headers\MinkovskiyLine.h" />
     <ClInclude Include="Headers\PifagorTreeLine.h" />
     <ClInclude Include="Headers\SierpinskiLine.h" />
@@ -212,6 +214,7 @@
     <ClCompile Include="Source\HosperLine.cpp" />
     <ClCompile Include="Source\KochLine.cpp" />
     <ClCompile Include="Source\LeviLine.cpp" />
+    <ClCompile Include="Source\MFCPaintPrimitive.cpp" />
     <ClCompile Include="Source\MinkovskiyLine.cpp" />
     <ClCompile Include="Source\PifagorTreeLine.cpp" />
     <ClCompile Include="Source\SierpinskiLine.cpp" />

@@ -12,6 +12,7 @@
 #include <mutex>
 #include "../Headers/MakeFractal.h"
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -67,7 +68,7 @@ void CL_system_drawDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_REC_NUM, m_RecNum);
-	DDX_Check(pDX, IDC_LOOK_CUR_LINE, g_bCheckLookCurLine);
+	DDX_Check(pDX, IDC_LOOK_CUR_LINE, fractal_lines::g_bCheckLookCurLine);
 	DDX_Control(pDX, IDC_LINE_COMBO, m_LineComboBox);
 }
 
@@ -143,7 +144,7 @@ BOOL CL_system_drawDlg::OnInitDialog()
 	m_LineComboBox.SetItemData(add_line, static_cast<DWORD_PTR>(fractal_lines::_draw_line_mode::LEVI_LINE));
 	add_line = m_LineComboBox.AddString(_T("Кривая Минковского"));
 	m_LineComboBox.SetItemData(add_line, static_cast<DWORD_PTR>(fractal_lines::_draw_line_mode::MINKOVSKIY_LINE));
-
+	
 	return TRUE;  // возврат значения TRUE, если фокус не передан элементу управления
 }
 

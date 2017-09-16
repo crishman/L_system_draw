@@ -18,9 +18,9 @@ namespace fractal_lines {
 
 	bool LeviLine::Draw(const unsigned& n) {
 		if (BaseLine::Draw(n)){
-			line_len_ = prect_->Width() / 3;
-			auto x0 = custom_math::int_round(prect_->Width() / 2 - line_len_ / 3);
-			auto y0 = custom_math::int_round(prect_->Height() * 5 / 6);
+			line_len_ = GetRectWidth() / 3;
+			auto x0 = custom_math::int_round(GetRectWidth() / 2 - line_len_ / 3);
+			auto y0 = custom_math::int_round(GetRectHeight() * 5 / 6);
 
 			auto i = 0;
 

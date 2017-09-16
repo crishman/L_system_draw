@@ -28,9 +28,9 @@ namespace fractal_lines {
 
 	bool NakedPifagorTree::Draw(const unsigned& n) {
 		if (BaseLine::Draw(n)){
-			line_len_ = prect_->Width() / 4;
-			auto x0 = custom_math::int_round(prect_->Width() / 2);
-			auto y0 = custom_math::int_round(prect_->Height() / 2 + line_len_);
+			line_len_ = GetRectWidth() / 4;
+			auto x0 = custom_math::int_round(GetRectWidth() / 2);
+			auto y0 = custom_math::int_round(GetRectHeight() / 2 + line_len_);
 
 			auto i = 0;
 
@@ -83,9 +83,9 @@ namespace fractal_lines {
 
 	bool PifagorTree::Draw(const unsigned& n) {
 		if (BaseLine::Draw(n)){
-			line_len_ = prect_->Width() / 8;
-			auto x0 = custom_math::int_round(prect_->Width() / 2);
-			auto y0 = custom_math::int_round(prect_->Height() / 2 + 2*line_len_);
+			line_len_ = GetRectWidth() / 8;
+			auto x0 = custom_math::int_round(GetRectWidth() / 2);
+			auto y0 = custom_math::int_round(GetRectHeight() / 2 + 2*line_len_);
 
 			auto i = 0;
 

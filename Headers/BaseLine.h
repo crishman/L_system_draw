@@ -1,14 +1,15 @@
 #pragma once
 #include <memory>
 #include <string>
-
-extern BOOL g_bCheckLookCurLine;
+#include "../Headers/MFCPaintPrimitive.h"
 
 namespace fractal_lines {
+	extern BOOL g_bCheckLookCurLine;
+
 	class BaseLine {
 	public:
-		BaseLine() :x_(0), y_(0), pdc_(nullptr), prect_(nullptr), ppen_(nullptr), pbrush_(nullptr), line_len_(0), count_line_on_step(0) {}
-		BaseLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect) :x_(0), y_(0), pdc_(pdc), prect_(prect), ppen_(nullptr), pbrush_(nullptr), line_len_(0), count_line_on_step(0) {}
+		BaseLine() :x_(0), y_(0), pdc_(nullptr), prect_(nullptr), line_len_(0), count_line_on_step(0) {}
+		BaseLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect) :x_(0), y_(0), pdc_(pdc), prect_(prect), line_len_(0), count_line_on_step(0) {}
 		virtual ~BaseLine() = default;
 		virtual bool Draw(const unsigned& num);
 
@@ -16,18 +17,21 @@ namespace fractal_lines {
 		void SetPen(const int& x, const int& y) noexcept { x_ = x; y_ = y; }
 		void line(const int& dir, const double& len);
 		void square(int x, int y, const int& dir, const double& len);
-		void ResetPen();
-		void ResetBrush();
-		void Clear();
+		void ResetPen() { ppen_.Reset(); }
+		void ResetBrush() { pbrush_.Reset(); }
+		void Clear() { if (pdc_.IsExist() && prect_.IsExist()) pdc_.SetDefaultBack(prect_); }
+
+		auto GetRectWidth() const { return prect_.GetWidth(); }
+		auto GetRectHeight() const { return prect_.GetHeight(); }
 
 	private:
 		int x_, y_;
-		std::shared_ptr<CPaintDC> pdc_;
-		std::unique_ptr<CPen> ppen_;//cur_pen
-		std::unique_ptr<CBrush> pbrush_;//cur_brush
+		MFCPaintDC pdc_;
+		MFCPen ppen_;
+		MFCBrush pbrush_;
+		MFCRect prect_;
 
-	protected:
-		std::shared_ptr<CRect> prect_;	
+	protected:	
 
 		double line_len_;
 

@@ -57,9 +57,9 @@ namespace fractal_lines {
 
 	bool HilbertLine::Draw(const unsigned& n) {
 		if (BaseLine::Draw(n)){
-			line_len_ = prect_->Width() / 2;
+			line_len_ = GetRectWidth() / 2;
 			auto x0 = custom_math::int_round(std::move(line_len_));
-			auto y0 = custom_math::int_round(prect_->Height() / 2);
+			auto y0 = custom_math::int_round(GetRectHeight() / 2);
 			auto i = 0;
 
 			do {				

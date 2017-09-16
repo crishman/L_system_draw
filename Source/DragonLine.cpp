@@ -35,9 +35,9 @@ namespace fractal_lines {
 
 	bool DragonLine::Draw(const unsigned& n) {
 		if (BaseLine::Draw(n)){
-			line_len_ = prect_->Width() / 3;
-			auto x0 = custom_math::int_round(prect_->Width() / 2 - line_len_ / 3);
-			auto y0 = custom_math::int_round(prect_->Height() / 2 + line_len_ / 4);
+			line_len_ = GetRectWidth() / 3;
+			auto x0 = custom_math::int_round(GetRectWidth() / 2 - line_len_ / 3);
+			auto y0 = custom_math::int_round(GetRectHeight() / 2 + line_len_ / 4);
 
 			auto i = 0;
 			line_lens.clear();
