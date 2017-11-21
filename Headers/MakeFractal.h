@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MAKE_FRACTAL_H
+#define MAKE_FRACTAL_H
+
 #include <memory>
 #include "../Headers/BaseLine.h"
 #include "../Headers/HilbertLine.h"
@@ -72,3 +74,5 @@ namespace fractal_lines {
 		return fractal_line;
 	}
 }
+
+#endif

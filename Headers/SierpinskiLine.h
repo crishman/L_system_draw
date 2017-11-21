@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SIERPINSKI_LINE_H
+#define SIERPINSKI_LINE_H
+
 #include "BaseLine.h"
 
 namespace fractal_lines {
@@ -23,3 +25,5 @@ namespace fractal_lines {
 		virtual bool Draw(const unsigned& n) override;
 	};
 }
+
+#endif 

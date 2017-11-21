@@ -1,35 +1,36 @@
-#pragma once
+#ifndef BASE_LINE_H
+#define BASE_LINE_H
+
 #include <memory>
 #include <string>
-#include "../Headers/MFCPaintPrimitive.h"
+#include <exception>
 
 namespace fractal_lines {
 	extern BOOL g_bCheckLookCurLine;
 
+	struct BaseLineImpl;
+
 	class BaseLine {
 	public:
-		BaseLine() :x_(0), y_(0), pdc_(nullptr), prect_(nullptr), line_len_(0), count_line_on_step(0) {}
-		BaseLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect) :x_(0), y_(0), pdc_(pdc), prect_(prect), line_len_(0), count_line_on_step(0) {}
-		virtual ~BaseLine() = default;
+		BaseLine();
+		BaseLine(std::shared_ptr<CPaintDC> pdc, std::shared_ptr<CRect> prect);
+		virtual ~BaseLine();
 		virtual bool Draw(const unsigned& num);
 
 	protected:
 		void SetPen(const int& x, const int& y) noexcept { x_ = x; y_ = y; }
 		void line(const int& dir, const double& len);
 		void square(int x, int y, const int& dir, const double& len);
-		void ResetPen() { ppen_.Reset(); }
-		void ResetBrush() { pbrush_.Reset(); }
-		void Clear() { if (pdc_.IsExist() && prect_.IsExist()) pdc_.SetDefaultBack(prect_); }
+		void ResetPen();
+		void ResetBrush();
+		void Clear();
 
-		auto GetRectWidth() const { return prect_.GetWidth(); }
-		auto GetRectHeight() const { return prect_.GetHeight(); }
+		int GetRectWidth() const;
+		int GetRectHeight() const;
 
 	private:
 		int x_, y_;
-		MFCPaintDC pdc_;
-		MFCPen ppen_;
-		MFCBrush pbrush_;
-		MFCRect prect_;
+		BaseLineImpl* impl_;
 
 	protected:	
 
@@ -38,11 +39,21 @@ namespace fractal_lines {
 		unsigned count_line_on_step;//количество вызовов реукрсии за один шаг
 	};
 
-	class TooDeepRecursionException {
+	class TooDeepRecursionException : std::exception {
 		std::string err_msg_;
 	public:
 		TooDeepRecursionException() :err_msg_("√лубина рекурсивной прорисовки дл€ данной кривой при текущем приближении больше чем установленное ограничение(2^16)!") {};
 
 		inline std::string GetErrMsg() const { return err_msg_; }
 	};
+
+	class pimpl_nullptr_exception : std::exception {
+		std::string err_msg_;
+	public:
+		pimpl_nullptr_exception() :err_msg_("Ќе определен указатель на реализацию!") {};
+
+		inline std::string GetErrMsg() const { return err_msg_; }
+	};
 }
+
+#endif

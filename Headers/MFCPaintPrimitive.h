@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MFC_PAINT_PRIMITIVE_H
+#define MFC_PAINT_PRIMITIVE_H
+
 #include <memory>
 #include "../Headers/InterfacePaintPrimitive.h"
 #include <vector>
@@ -81,3 +83,5 @@ namespace fractal_lines {
 		std::shared_ptr<CPaintDC> pdc_;
 	};
 }
+
+#endif

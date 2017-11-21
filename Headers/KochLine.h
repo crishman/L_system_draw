@@ -1,4 +1,6 @@
-#pragma once
+#ifndef KOCH_LINE_H
+#define KOCH_LINE_H
+
 #include "BaseLine.h"
 #include <vector>
 
@@ -21,3 +23,5 @@ namespace fractal_lines {
 		virtual bool Draw(const unsigned& n) override;
 	};
 }
+
+#endif

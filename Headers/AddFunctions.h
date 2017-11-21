@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ADD_FUNCTIONS_H
+#define ADD_FUNCTIONS_H
 
 namespace custom_math {
 	double sin(const int& dir);
@@ -7,3 +8,4 @@ namespace custom_math {
 	int int_round(double&& d);
 }
 
+#endif

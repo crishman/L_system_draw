@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PIFAGORE_TREE_LINE_H
+#define PIFAGORE_TREE_LINE_H
+
 #include "BaseLine.h"
 #include <vector>
 
@@ -25,3 +27,5 @@ namespace fractal_lines {
 		virtual bool Draw(const unsigned& n) override;
 	};
 }
+
+#endif

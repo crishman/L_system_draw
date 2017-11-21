@@ -1,8 +1,8 @@
-
+#ifndef L_SYSTEM_DRAW_DLG_H
+#define L_SYSTEM_DRAW_DLG_H
 // L_system_drawDlg.h : файл заголовка
 //
 
-#pragma once
 #include "afxwin.h"
 #include "MakeFractal.h"
 
@@ -54,3 +54,5 @@ public:
 	afx_msg void OnBnClickedRightWingR();
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 };
+
+#endif

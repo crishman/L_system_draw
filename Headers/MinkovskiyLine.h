@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MINKOVSKIY_LINE_H
+#define MINKOVSKIY_LINE_H
+
 #include "BaseLine.h"
 #include <vector>
 
@@ -15,3 +17,5 @@ namespace fractal_lines {
 		virtual bool Draw(const unsigned& n) override;
 	};
 }
+
+#endif

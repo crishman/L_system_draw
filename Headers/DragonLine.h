@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DRAGON_LINE_H
+#define DRAGON_LINE_H
+
 #include "BaseLine.h"
 #include <vector>
 
@@ -15,3 +17,5 @@ namespace fractal_lines {
 		virtual bool Draw(const unsigned& n) override;
 	};
 }
+
+#endif

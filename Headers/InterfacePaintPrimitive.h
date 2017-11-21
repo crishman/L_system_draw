@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INTERFACE_PAINT_PRIMITIVE_H
+#define INTERFACE_PAINT_PRIMITIVE_H
 
 namespace fractal_lines{
 
@@ -38,3 +39,5 @@ namespace fractal_lines{
 		virtual bool IsExist() const = 0;
 	};
 }
+
+#endif

@@ -185,6 +185,7 @@ void CL_system_drawDlg::OnPaint()
 				CString err(ex.GetErrMsg().c_str());
 				AfxMessageBox(err);
 			}
+			catch (fractal_lines::pimpl_nullptr_exception) {}
 		}
 	});
 		
