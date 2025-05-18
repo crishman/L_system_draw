@@ -31,6 +31,9 @@ class MathTest : public ::testing::Test {
 protected:
     // Tolerance for floating point comparisons
     const double epsilon = 1e-6;
+    
+    // Degrees to radians conversion factor (same as koef_pi in the implementation)
+    const double deg_to_rad = 3.14159265 / 180;
 };
 
 // Test the custom sin function
@@ -43,7 +46,7 @@ TEST_F(MathTest, SinFunction) {
     
     // Test arbitrary angle
     const int angle = 45;
-    const double expected = std::sin(angle * 3.14159265 / 180);
+    const double expected = std::sin(angle * deg_to_rad);
     EXPECT_NEAR(custom_math::sin(angle), expected, epsilon);
     
 #ifdef LINUX_BUILD
@@ -64,7 +67,7 @@ TEST_F(MathTest, CosFunction) {
     
     // Test arbitrary angle
     const int angle = 45;
-    const double expected = std::cos(angle * 3.14159265 / 180);
+    const double expected = std::cos(angle * deg_to_rad);
     EXPECT_NEAR(custom_math::cos(angle), expected, epsilon);
     
 #ifdef LINUX_BUILD
