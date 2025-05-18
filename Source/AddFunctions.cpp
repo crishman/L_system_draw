@@ -46,7 +46,7 @@ namespace custom_math {
 		return res;
 	}
 
-	int int_round(double&& d) {
+	int int_round(double d) {
 		return static_cast<int>(std::round(d));
 	}
 }

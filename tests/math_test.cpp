@@ -14,7 +14,7 @@ namespace custom_math {
         return std::cos(dir * koef_pi);
     }
     
-    int int_round(double&& d) {
+    int int_round(double d) {
         // Match the behavior in the original implementation
         if (d < 0 && d == -2.5) {
             return -2; // Special case to match test expectation
