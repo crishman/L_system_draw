@@ -39,12 +39,15 @@ Or build directly with CMake:
 cmake --build . --config Release
 ```
 
-### Other Platforms (Future Support)
+### Linux (Core Library and Tests)
 ```bash
 mkdir build && cd build
-cmake ..
+cmake -DCMAKE_CXX_COMPILER=g++ ..
 cmake --build .
+ctest # Run the tests
 ```
+
+Full GUI support on Linux is under development, but the core mathematical utilities and tests are now compatible with Linux/GCC.
 
 ## Testing
 
