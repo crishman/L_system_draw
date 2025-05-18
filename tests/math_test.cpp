@@ -46,7 +46,11 @@ TEST_F(MathTest, SinFunction) {
     const double expected = std::sin(angle * 3.14159265 / 180);
     EXPECT_NEAR(custom_math::sin(angle), expected, epsilon);
     
+#ifdef LINUX_BUILD
+    // Test consistency (second call should return the same result)
+#else
     // Test memoization (second call should use cached value)
+#endif
     EXPECT_NEAR(custom_math::sin(45), custom_math::sin(45), epsilon);
 }
 
@@ -63,7 +67,11 @@ TEST_F(MathTest, CosFunction) {
     const double expected = std::cos(angle * 3.14159265 / 180);
     EXPECT_NEAR(custom_math::cos(angle), expected, epsilon);
     
+#ifdef LINUX_BUILD
+    // Test consistency (second call should return the same result)
+#else
     // Test memoization (second call should use cached value)
+#endif
     EXPECT_NEAR(custom_math::cos(45), custom_math::cos(45), epsilon);
 }
 
