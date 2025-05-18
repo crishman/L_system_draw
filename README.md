@@ -25,16 +25,25 @@ The application uses an MFC-based UI with an object-oriented design:
 
 ## Building
 
-### Visual Studio
-1. Open `L_system_draw.vcxproj` in Visual Studio
-2. Select configuration (Debug/Release) and platform (x86/x64)
-3. Build solution
-
-### CMake (New!)
+### Windows (Visual Studio)
 ```bash
 mkdir build && cd build
 cmake -G "Visual Studio 16 2019" ..
+```
+Then either:
+1. Open the generated solution file in Visual Studio
+2. Build using VS interface
+
+Or build directly with CMake:
+```bash
 cmake --build . --config Release
+```
+
+### Other Platforms (Future Support)
+```bash
+mkdir build && cd build
+cmake ..
+cmake --build .
 ```
 
 ## Testing
