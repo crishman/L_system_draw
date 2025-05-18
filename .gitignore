@@ -86,6 +86,7 @@ Testing/
 # User-specific files
 CLAUDE.md
 pr_description.md
+PR_COST_SUMMARY.md
 
 # Temporary files
 *.tmp
