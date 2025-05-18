@@ -101,12 +101,17 @@ if(WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE)
     
 else()
-    # For future cross-platform support (placeholder)
+    # For non-Windows platforms, build only the tests
     message(STATUS "Non-Windows platform detected. MFC-based UI will not be available.")
+    message(STATUS "Building only the tests and core utilities")
     
-    # For future cross-platform support, we could add alternative implementation:
-    # add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
-    # target_link_libraries(${PROJECT_NAME} PRIVATE <future-cross-platform-libs>)
+    # Create a minimal core library without MFC dependencies
+    set(CORE_SOURCE_FILES
+        Source/AddFunctions.cpp
+    )
+    
+    add_library(${PROJECT_NAME}_core STATIC ${CORE_SOURCE_FILES})
+    target_compile_definitions(${PROJECT_NAME}_core PRIVATE -DLINUX_BUILD)
 endif()
 
 # Set output directories
@@ -115,11 +120,18 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 # Installation rules
-install(TARGETS ${PROJECT_NAME}
-    RUNTIME DESTINATION bin
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib
-)
+if(WIN32)
+    install(TARGETS ${PROJECT_NAME}
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+    )
+else()
+    install(TARGETS ${PROJECT_NAME}_core
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+    )
+endif()
 # Add tests subdirectory if testing is enabled
 if(BUILD_TESTING)
     add_subdirectory(tests)

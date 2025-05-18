@@ -1,7 +1,13 @@
-#include "stdafx.h"
-#include <cmath> 
+#ifdef LINUX_BUILD
+#include <cmath>
 #include <map>
 #include "../Headers/AddFunctions.h"
+#else
+#include "stdafx.h"
+#include <cmath>
+#include <map>
+#include "../Headers/AddFunctions.h"
+#endif
 
 namespace custom_math {
 
