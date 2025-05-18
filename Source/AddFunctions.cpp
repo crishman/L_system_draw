@@ -1,7 +1,13 @@
-#include "stdafx.h"
-#include <cmath> 
+#ifdef LINUX_BUILD
+#include <cmath>
 #include <map>
 #include "../Headers/AddFunctions.h"
+#else
+#include "stdafx.h"
+#include <cmath>
+#include <map>
+#include "../Headers/AddFunctions.h"
+#endif
 
 namespace custom_math {
 
@@ -40,7 +46,7 @@ namespace custom_math {
 		return res;
 	}
 
-	int int_round(double&& d) {
+	int int_round(double d) {
 		return static_cast<int>(std::round(d));
 	}
 }
